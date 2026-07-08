@@ -260,41 +260,50 @@
   }
   .gate-option:hover { border-color: var(--accent); transform: translateY(-2px); }
   .gate-option:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-  .gate-glyph { width: 100%; display: flex; align-items: center; justify-content: center; }
+  .gate-glyph { width: 100%; height: 74px; display: flex; align-items: center; justify-content: center; }
   .gate-glyph svg { stroke: var(--accent); }
-  .gate-video-preview {
-    position: relative;
-    border-radius: 10px;
-    overflow: hidden;
-    border: 1px solid var(--border);
-    background: var(--bg);
-  }
-  .gate-video-preview video { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .gate-video-preview--wide { width: 100%; aspect-ratio: 4 / 3; }
-  .gate-video-preview--tall { width: 88px; aspect-ratio: 9 / 16; margin: 0 auto; }
-  @media (prefers-reduced-motion: reduce) {
-    .gate-video-preview { display: none; }
-  }
-  .gate-sound-toggle {
-    position: absolute;
-    bottom: 6px;
-    right: 6px;
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    background: rgba(15, 20, 18, 0.55);
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-  }
-  .gate-sound-toggle svg { width: 12px; height: 12px; }
-  .gate-sound-toggle .icon-sound { display: none; }
-  .gate-sound-toggle.is-on .icon-muted { display: none; }
-  .gate-sound-toggle.is-on .icon-sound { display: block; }
   .gate-option-title { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 19px; }
   .gate-option-sub { font-size: 12.5px; color: var(--text-muted); line-height: 1.4; }
+
+  .transition-splash {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background: var(--page-bg);
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+  }
+  .transition-splash.is-active { display: flex; }
+  .transition-video-frame {
+    display: none;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    background: var(--bg-raised);
+  }
+  .transition-video-frame.is-active { display: block; }
+  .transition-video-frame video { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .transition-video-frame--desktop { width: min(420px, 80vw); aspect-ratio: 1086 / 1080; }
+  .transition-video-frame--mobile { width: min(300px, 68vw); aspect-ratio: 9 / 16; max-height: 76vh; }
+  .transition-skip {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .04em;
+    color: var(--text-muted);
+    background: var(--bg-raised);
+    border: 1px solid var(--border);
+    padding: 8px 16px;
+    border-radius: 999px;
+    cursor: pointer;
+  }
+  .transition-skip:hover { color: var(--text); border-color: var(--text-muted); }
+  @media (prefers-reduced-motion: reduce) {
+    .transition-splash { display: none !important; }
+  }
 
   /* ---------- top bar ---------- */
   .topbar {
@@ -1149,38 +1158,32 @@
   </div>
   <div class="gate-options">
     <button class="gate-option" id="gateDesktop" type="button">
-      <span class="gate-glyph">
-        <span class="gate-video-preview gate-video-preview--wide">
-          <video autoplay muted loop playsinline preload="auto">
-            <source src="data:video/webm;base64,__GATE_DESKTOP_WEBM__" type="video/webm" />
-            <source src="data:video/mp4;base64,__GATE_DESKTOP_MP4__" type="video/mp4" />
-          </video>
-          <span class="gate-sound-toggle" role="button" tabindex="0" aria-label="ativar som">
-            <svg class="icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
-            <svg class="icon-sound" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>
-          </span>
-        </span>
-      </span>
+      <span class="gate-glyph"><svg width="60" height="46" viewBox="0 0 60 46" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="54" height="34" rx="3" stroke="currentColor" stroke-width="2"/><line x1="22" y1="44" x2="38" y2="44" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="30" y1="37" x2="30" y2="44" stroke="currentColor" stroke-width="2"/></svg></span>
       <span class="gate-option-title">Desktop</span>
       <span class="gate-option-sub">tela cheia, navegação por abas no topo</span>
     </button>
     <button class="gate-option" id="gateMobile" type="button">
-      <span class="gate-glyph">
-        <span class="gate-video-preview gate-video-preview--tall">
-          <video autoplay muted loop playsinline preload="auto">
-            <source src="data:video/webm;base64,__GATE_MOBILE_WEBM__" type="video/webm" />
-            <source src="data:video/mp4;base64,__GATE_MOBILE_MP4__" type="video/mp4" />
-          </video>
-          <span class="gate-sound-toggle" role="button" tabindex="0" aria-label="ativar som">
-            <svg class="icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
-            <svg class="icon-sound" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>
-          </span>
-        </span>
-      </span>
+      <span class="gate-glyph"><svg width="28" height="48" viewBox="0 0 28 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="24" height="44" rx="5" stroke="currentColor" stroke-width="2"/><line x1="10" y1="41" x2="18" y2="41" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
       <span class="gate-option-title">Celular</span>
       <span class="gate-option-sub">largura de aparelho real, com moldura</span>
     </button>
   </div>
+</div>
+
+<div class="transition-splash" id="transitionSplash">
+  <span class="transition-video-frame transition-video-frame--desktop" id="transitionFrameDesktop">
+    <video id="transitionVideoDesktop" playsinline preload="auto">
+      <source src="data:video/webm;base64,__GATE_DESKTOP_WEBM__" type="video/webm" />
+      <source src="data:video/mp4;base64,__GATE_DESKTOP_MP4__" type="video/mp4" />
+    </video>
+  </span>
+  <span class="transition-video-frame transition-video-frame--mobile" id="transitionFrameMobile">
+    <video id="transitionVideoMobile" playsinline preload="auto">
+      <source src="data:video/webm;base64,__GATE_MOBILE_WEBM__" type="video/webm" />
+      <source src="data:video/mp4;base64,__GATE_MOBILE_MP4__" type="video/mp4" />
+    </video>
+  </span>
+  <button class="transition-skip" id="transitionSkip" type="button">pular</button>
 </div>
 
 <div class="device-toggle" id="deviceToggle">
@@ -1881,27 +1884,20 @@
 
 <script>
   (function () {
-    var toggles = document.querySelectorAll('.gate-sound-toggle');
-    toggles.forEach(function (t) {
-      function toggleSound(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        var wrapper = t.closest('.gate-video-preview');
-        var video = wrapper.querySelector('video');
-        video.muted = !video.muted;
-        if (!video.muted) { video.play().catch(function () {}); }
-        t.classList.toggle('is-on', !video.muted);
-        t.setAttribute('aria-label', video.muted ? 'ativar som' : 'sem som');
-      }
-      t.addEventListener('click', toggleSound);
-      t.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' || e.key === ' ') { toggleSound(e); }
-      });
-    });
-  })();
-
-  (function () {
     var html = document.documentElement;
+    var gate = document.getElementById('gate');
+    var splash = document.getElementById('transitionSplash');
+    var skip = document.getElementById('transitionSkip');
+    var frames = {
+      desktop: document.getElementById('transitionFrameDesktop'),
+      mobile: document.getElementById('transitionFrameMobile')
+    };
+    var videos = {
+      desktop: document.getElementById('transitionVideoDesktop'),
+      mobile: document.getElementById('transitionVideoMobile')
+    };
+    var pendingMode = null;
+
     function setDevice(mode) {
       html.setAttribute('data-device', mode);
       var dBtn = document.getElementById('toggleDesktop');
@@ -1912,8 +1908,44 @@
       }
       window.scrollTo(0, 0);
     }
-    document.getElementById('gateDesktop').addEventListener('click', function () { setDevice('desktop'); });
-    document.getElementById('gateMobile').addEventListener('click', function () { setDevice('mobile'); });
+
+    function stopAll() {
+      videos.desktop.pause();
+      videos.mobile.pause();
+      frames.desktop.classList.remove('is-active');
+      frames.mobile.classList.remove('is-active');
+    }
+
+    function finishTransition() {
+      stopAll();
+      splash.classList.remove('is-active');
+      if (pendingMode) setDevice(pendingMode);
+    }
+
+    function playTransition(mode) {
+      var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduceMotion) { setDevice(mode); return; }
+      pendingMode = mode;
+      gate.style.display = 'none';
+      splash.classList.add('is-active');
+      frames[mode].classList.add('is-active');
+      var video = videos[mode];
+      video.currentTime = 0;
+      video.muted = false;
+      video.play().catch(function () {
+        video.muted = true;
+        video.play().catch(function () {});
+      });
+    }
+
+    document.getElementById('gateDesktop').addEventListener('click', function () { playTransition('desktop'); });
+    document.getElementById('gateMobile').addEventListener('click', function () { playTransition('mobile'); });
+    videos.desktop.addEventListener('ended', finishTransition);
+    videos.mobile.addEventListener('ended', finishTransition);
+    videos.desktop.addEventListener('error', finishTransition);
+    videos.mobile.addEventListener('error', finishTransition);
+    skip.addEventListener('click', finishTransition);
+
     document.getElementById('toggleDesktop').addEventListener('click', function () { setDevice('desktop'); });
     document.getElementById('toggleMobile').addEventListener('click', function () { setDevice('mobile'); });
   })();
