@@ -263,6 +263,7 @@
   .gate-glyph { width: 100%; display: flex; align-items: center; justify-content: center; }
   .gate-glyph svg { stroke: var(--accent); }
   .gate-video-preview {
+    position: relative;
     border-radius: 10px;
     overflow: hidden;
     border: 1px solid var(--border);
@@ -274,6 +275,24 @@
   @media (prefers-reduced-motion: reduce) {
     .gate-video-preview { display: none; }
   }
+  .gate-sound-toggle {
+    position: absolute;
+    bottom: 6px;
+    right: 6px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: rgba(15, 20, 18, 0.55);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  .gate-sound-toggle svg { width: 12px; height: 12px; }
+  .gate-sound-toggle .icon-sound { display: none; }
+  .gate-sound-toggle.is-on .icon-muted { display: none; }
+  .gate-sound-toggle.is-on .icon-sound { display: block; }
   .gate-option-title { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 19px; }
   .gate-option-sub { font-size: 12.5px; color: var(--text-muted); line-height: 1.4; }
 
@@ -1136,6 +1155,10 @@
             <source src="data:video/webm;base64,__GATE_DESKTOP_WEBM__" type="video/webm" />
             <source src="data:video/mp4;base64,__GATE_DESKTOP_MP4__" type="video/mp4" />
           </video>
+          <span class="gate-sound-toggle" role="button" tabindex="0" aria-label="ativar som">
+            <svg class="icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+            <svg class="icon-sound" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>
+          </span>
         </span>
       </span>
       <span class="gate-option-title">Desktop</span>
@@ -1148,6 +1171,10 @@
             <source src="data:video/webm;base64,__GATE_MOBILE_WEBM__" type="video/webm" />
             <source src="data:video/mp4;base64,__GATE_MOBILE_MP4__" type="video/mp4" />
           </video>
+          <span class="gate-sound-toggle" role="button" tabindex="0" aria-label="ativar som">
+            <svg class="icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+            <svg class="icon-sound" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>
+          </span>
         </span>
       </span>
       <span class="gate-option-title">Celular</span>
@@ -1854,10 +1881,29 @@
 
 <script>
   (function () {
+    var toggles = document.querySelectorAll('.gate-sound-toggle');
+    toggles.forEach(function (t) {
+      function toggleSound(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var wrapper = t.closest('.gate-video-preview');
+        var video = wrapper.querySelector('video');
+        video.muted = !video.muted;
+        if (!video.muted) { video.play().catch(function () {}); }
+        t.classList.toggle('is-on', !video.muted);
+        t.setAttribute('aria-label', video.muted ? 'ativar som' : 'sem som');
+      }
+      t.addEventListener('click', toggleSound);
+      t.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { toggleSound(e); }
+      });
+    });
+  })();
+
+  (function () {
     var html = document.documentElement;
     function setDevice(mode) {
       html.setAttribute('data-device', mode);
-      try { localStorage.setItem('gdv-device', mode); } catch (e) {}
       var dBtn = document.getElementById('toggleDesktop');
       var mBtn = document.getElementById('toggleMobile');
       if (dBtn && mBtn) {
@@ -1870,9 +1916,6 @@
     document.getElementById('gateMobile').addEventListener('click', function () { setDevice('mobile'); });
     document.getElementById('toggleDesktop').addEventListener('click', function () { setDevice('desktop'); });
     document.getElementById('toggleMobile').addEventListener('click', function () { setDevice('mobile'); });
-    var saved = null;
-    try { saved = localStorage.getItem('gdv-device'); } catch (e) {}
-    if (saved === 'mobile' || saved === 'desktop') setDevice(saved);
   })();
 </script>
 
