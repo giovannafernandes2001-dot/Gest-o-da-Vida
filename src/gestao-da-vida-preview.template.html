@@ -202,38 +202,6 @@
   .device-toggle button.is-active { background: var(--accent); color: var(--accent-text); }
   html:not([data-device]) .device-toggle { display: none; }
 
-  .intro-splash {
-    position: fixed;
-    inset: 0;
-    z-index: 100;
-    background: var(--page-bg);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 1;
-    transition: opacity .5s ease;
-  }
-  .intro-splash.is-hidden { opacity: 0; pointer-events: none; }
-  .intro-splash video { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .intro-skip {
-    position: absolute;
-    bottom: 24px;
-    right: 24px;
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    letter-spacing: .04em;
-    color: var(--text-muted);
-    background: var(--bg-raised);
-    border: 1px solid var(--border);
-    padding: 8px 16px;
-    border-radius: 999px;
-    cursor: pointer;
-  }
-  .intro-skip:hover { color: var(--text); border-color: var(--text-muted); }
-  @media (prefers-reduced-motion: reduce) {
-    .intro-splash { display: none; }
-  }
-
   .gate {
     min-height: 100vh;
     display: flex;
@@ -245,15 +213,19 @@
     gap: 40px;
   }
   html[data-device] .gate { display: none; }
-  .gate-mark { width: 120px; }
-  .gate-mark img { display: block; width: 100%; height: auto; }
-  .gate-mark .mark-dark { display: none; }
-  @media (prefers-color-scheme: dark) {
-    .gate-mark .mark-light { display: none; }
-    .gate-mark .mark-dark { display: block; }
+  .gate-video-frame {
+    width: min(340px, 78vw);
+    aspect-ratio: 16 / 9;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    background: var(--bg-raised);
   }
-  html[data-theme="dark"] .gate-mark .mark-light { display: none; }
-  html[data-theme="dark"] .gate-mark .mark-dark { display: block; }
+  .gate-video-frame video { width: 100%; height: 100%; object-fit: cover; display: block; }
+  @media (prefers-reduced-motion: reduce) {
+    .gate-video-frame { display: none; }
+  }
   .gate-title {
     font-family: 'Cormorant Garamond', serif;
     font-weight: 600;
@@ -386,22 +358,22 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    gap: 20px;
+    gap: 34px;
   }
-  .hero-brand-mark { width: 128px; flex: none; }
+  .hero-brand-mark { width: 252px; flex: none; }
   .hero-brand-mark img { display: block; width: 100%; height: auto; }
   .hero-brand-mark .mark-dark { display: none; }
-  .hero-brand-text { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+  .hero-brand-text { display: flex; flex-direction: column; align-items: center; gap: 17px; }
   .hero-wordmark {
     font-family: 'Gilda Display', serif;
-    font-size: clamp(28px, 3.4vw, 38px);
+    font-size: clamp(53px, 6vw, 70px);
     color: var(--accent);
     line-height: 1;
   }
-  .hero-divider { width: 64px; height: 1px; background: var(--gold); opacity: .55; }
+  .hero-divider { width: 108px; height: 1px; background: var(--gold); opacity: .55; }
   .hero-signature {
     font-family: 'Space Mono', monospace;
-    font-size: 11.5px;
+    font-size: 15px;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--text-muted);
@@ -414,15 +386,6 @@
   :root[data-theme="dark"] .hero-brand-mark .mark-dark { display: block; }
   :root[data-theme="light"] .hero-brand-mark .mark-light { display: block; }
   :root[data-theme="light"] .hero-brand-mark .mark-dark { display: none; }
-  .hero-eyebrow {
-    font-family: 'Space Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin: 4px 0 0;
-    text-align: center;
-  }
   .hero-verses { min-width: 0; padding-top: 6px; text-align: right; }
   @container stage (max-width: 780px) {
     .hero-top { grid-template-columns: 1fr; gap: 36px; }
@@ -1033,7 +996,7 @@
   .report-intro { max-width: 74ch; margin-bottom: 56px; }
   .report-intro .section-title { max-width: 20ch; }
 
-  .symbol-visual { width: 148px; margin: 0 auto 20px; }
+  .symbol-visual { width: 208px; margin: 0 auto 24px; }
   .symbol-visual img { display: block; width: 100%; height: auto; }
   .symbol-visual .mark-dark { display: none; }
   @media (prefers-color-scheme: dark) {
@@ -1148,18 +1111,12 @@
   }
 </style>
 
-<div class="intro-splash" id="introSplash">
-  <video id="introVideo" autoplay muted playsinline preload="auto">
-    <source src="data:video/webm;base64,__INTRO_WEBM__" type="video/webm" />
-    <source src="data:video/mp4;base64,__INTRO_MP4__" type="video/mp4" />
-  </video>
-  <button class="intro-skip" id="introSkip" type="button">pular</button>
-</div>
-
 <div class="gate" id="gate">
-  <div class="gate-mark">
-    <img class="mark-light" src="data:image/png;base64,__ICON_GREEN__" alt="" />
-    <img class="mark-dark" src="data:image/png;base64,__ICON_CREAM__" alt="" />
+  <div class="gate-video-frame">
+    <video autoplay muted loop playsinline preload="auto">
+      <source src="data:video/webm;base64,__INTRO_WEBM__" type="video/webm" />
+      <source src="data:video/mp4;base64,__INTRO_MP4__" type="video/mp4" />
+    </video>
   </div>
   <div>
     <p class="gate-title">Como visualizar este esboço?</p>
@@ -1219,7 +1176,6 @@
           <span class="hero-divider"></span>
           <span class="hero-signature">by Rubens Luiz Bernardes da Costa</span>
         </div>
-        <p class="hero-eyebrow">uma pré-visualização — não uma decisão tomada</p>
       </div>
       <div class="hero-verses">
         <div class="hero-verse hero-verse-primary">
@@ -1877,25 +1833,6 @@
 </div>
 
 <script>
-  (function () {
-    var splash = document.getElementById('introSplash');
-    var video = document.getElementById('introVideo');
-    var skip = document.getElementById('introSkip');
-    if (!splash) return;
-    function dismiss() {
-      splash.classList.add('is-hidden');
-      setTimeout(function () { splash.style.display = 'none'; }, 500);
-    }
-    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduceMotion) { dismiss(); }
-    else {
-      video.addEventListener('ended', dismiss);
-      video.addEventListener('error', dismiss);
-      skip.addEventListener('click', dismiss);
-      setTimeout(dismiss, 8000);
-    }
-  })();
-
   (function () {
     var html = document.documentElement;
     function setDevice(mode) {
