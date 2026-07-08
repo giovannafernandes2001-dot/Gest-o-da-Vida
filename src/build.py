@@ -4,8 +4,10 @@ fonts = pathlib.Path('fonts'); f2 = pathlib.Path('fonts2'); f3 = pathlib.Path('f
 k2 = pathlib.Path('kittl2')
 video = pathlib.Path('video')
 repl = {
-    '__INTRO_MP4__': (video/'intro.b64').read_text().strip(),
-    '__INTRO_WEBM__': (video/'intro-webm.b64').read_text().strip(),
+    '__GATE_DESKTOP_MP4__': (video/'desktop-clip-mp4.b64').read_text().strip(),
+    '__GATE_DESKTOP_WEBM__': (video/'desktop-clip-webm.b64').read_text().strip(),
+    '__GATE_MOBILE_MP4__': (video/'mobile-clip-mp4.b64').read_text().strip(),
+    '__GATE_MOBILE_WEBM__': (video/'mobile-clip-webm.b64').read_text().strip(),
     '__GILDA__': (f2/'gilda-display.b64').read_text().strip(),
     '__CORMORANT_REG__': (f2/'cormorant-garamond.b64').read_text().strip(),
     '__CORMORANT_ITALIC__': (f3/'cormorant-italic.b64').read_text().strip(),
