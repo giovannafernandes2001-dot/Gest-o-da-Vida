@@ -1,0 +1,2286 @@
+<title>Gestão da Vida — pré-visualização</title>
+<style>
+  @font-face {
+    font-family: 'Gilda Display';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(data:font/woff2;base64,__GILDA__) format('woff2');
+  }
+  @font-face {
+    font-family: 'Cormorant Garamond';
+    font-style: normal;
+    font-weight: 500 700;
+    font-display: swap;
+    src: url(data:font/woff2;base64,__CORMORANT_REG__) format('woff2');
+  }
+  @font-face {
+    font-family: 'Cormorant Garamond';
+    font-style: italic;
+    font-weight: 500;
+    font-display: swap;
+    src: url(data:font/woff2;base64,__CORMORANT_ITALIC__) format('woff2');
+  }
+  @font-face {
+    font-family: 'Karla';
+    font-style: normal;
+    font-weight: 400 700;
+    font-display: swap;
+    src: url(data:font/woff2;base64,__KARLA__) format('woff2');
+  }
+  @font-face {
+    font-family: 'Space Mono';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(data:font/woff2;base64,__SPACEMONO_400__) format('woff2');
+  }
+  @font-face {
+    font-family: 'Space Mono';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url(data:font/woff2;base64,__SPACEMONO_700__) format('woff2');
+  }
+
+  :root {
+    --bg: #ececdf;
+    --page-bg: #fbfaf6;
+    --bg-raised: #f6f6ee;
+    --bg-sunken: #e1e2d2;
+    --text: #16211d;
+    --text-muted: #586359;
+    --border: #d2d3c2;
+    --accent: #285c50;
+    --accent-text: #ffffff;
+    --accent-soft: #dae4de;
+    --accent-soft-border: #b9cec4;
+    --gold: #8a6b2e;
+    --gold-soft: #efe3c4;
+    --gold-soft-border: #ddc98f;
+    --ring-track: #d9dac8;
+    --danger: #a1483a;
+    --shadow: 0 1px 2px rgba(22,33,29,0.06), 0 8px 24px -12px rgba(22,33,29,0.18);
+    --phone-bg: #fbfbf5;
+    --scrollbar: #c9cab8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1a17;
+      --page-bg: #0f1a17;
+      --bg-raised: #172420;
+      --bg-sunken: #0b1412;
+      --text: #eceee1;
+      --text-muted: #8ea299;
+      --border: #223730;
+      --accent: #67ab9b;
+      --accent-text: #0b1412;
+      --accent-soft: #1c3630;
+      --accent-soft-border: #2a4a41;
+      --gold: #d8b168;
+      --gold-soft: #33291a;
+      --gold-soft-border: #4f4128;
+      --ring-track: #223730;
+      --danger: #d3776a;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 12px 32px -14px rgba(0,0,0,0.55);
+      --phone-bg: #0e1917;
+      --scrollbar: #2c3b32;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0f1a17;
+    --page-bg: #0f1a17;
+    --bg-raised: #172420;
+    --bg-sunken: #0b1412;
+    --text: #eceee1;
+    --text-muted: #8ea299;
+    --border: #223730;
+    --accent: #67ab9b;
+    --accent-text: #0b1412;
+    --accent-soft: #1c3630;
+    --accent-soft-border: #2a4a41;
+    --gold: #d8b168;
+    --gold-soft: #33291a;
+    --gold-soft-border: #4f4128;
+    --ring-track: #223730;
+    --danger: #d3776a;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 12px 32px -14px rgba(0,0,0,0.55);
+    --phone-bg: #0e1917;
+    --scrollbar: #2c3b32;
+  }
+  :root[data-theme="light"] {
+    --bg: #ececdf;
+    --page-bg: #fbfaf6;
+    --bg-raised: #f6f6ee;
+    --bg-sunken: #e1e2d2;
+    --text: #16211d;
+    --text-muted: #586359;
+    --border: #d2d3c2;
+    --accent: #285c50;
+    --accent-text: #ffffff;
+    --accent-soft: #dae4de;
+    --accent-soft-border: #b9cec4;
+    --gold: #8a6b2e;
+    --gold-soft: #efe3c4;
+    --gold-soft-border: #ddc98f;
+    --ring-track: #d9dac8;
+    --danger: #a1483a;
+    --shadow: 0 1px 2px rgba(22,33,29,0.06), 0 8px 24px -12px rgba(22,33,29,0.18);
+    --phone-bg: #fbfbf5;
+    --scrollbar: #c9cab8;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  }
+
+  body {
+    margin: 0;
+    background: var(--page-bg);
+    color: var(--text);
+    font-family: 'Karla', system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection { background: var(--accent-soft); color: var(--text); }
+
+  a { color: inherit; }
+
+  .wrap {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ---------- device stage & chooser gate ---------- */
+  html, body { overflow-x: hidden; }
+  #deviceStage {
+    container-type: inline-size;
+    container-name: stage;
+    display: none;
+  }
+  html[data-device] #deviceStage { display: block; }
+  html[data-device="mobile"] #deviceStage {
+    width: min(402px, 100%);
+    margin: 0 auto;
+    border-left: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+    box-shadow: var(--shadow);
+  }
+  html[data-device="mobile"] body { background: var(--page-bg); padding: 28px 0; }
+  html[data-device="desktop"] #deviceStage { width: 100%; }
+
+  .device-toggle {
+    position: fixed;
+    bottom: 18px;
+    right: 18px;
+    z-index: 60;
+    display: flex;
+    gap: 6px;
+    background: var(--bg-raised);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 5px;
+    box-shadow: var(--shadow);
+  }
+  .device-toggle button {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.02em;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    padding: 8px 13px;
+    border-radius: 999px;
+    cursor: pointer;
+  }
+  .device-toggle button.is-active { background: var(--accent); color: var(--accent-text); }
+  html:not([data-device]) .device-toggle { display: none; }
+
+  .intro-splash {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background: var(--page-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    transition: opacity .5s ease;
+  }
+  .intro-splash.is-hidden { opacity: 0; pointer-events: none; }
+  .intro-splash video { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .intro-skip {
+    position: absolute;
+    bottom: 24px;
+    right: 24px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: .04em;
+    color: var(--text-muted);
+    background: var(--bg-raised);
+    border: 1px solid var(--border);
+    padding: 8px 16px;
+    border-radius: 999px;
+    cursor: pointer;
+  }
+  .intro-skip:hover { color: var(--text); border-color: var(--text-muted); }
+  @media (prefers-reduced-motion: reduce) {
+    .intro-splash { display: none; }
+  }
+
+  .gate {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 24px;
+    gap: 40px;
+  }
+  html[data-device] .gate { display: none; }
+  .gate-mark { width: 120px; }
+  .gate-mark img { display: block; width: 100%; height: auto; }
+  .gate-mark .mark-dark { display: none; }
+  @media (prefers-color-scheme: dark) {
+    .gate-mark .mark-light { display: none; }
+    .gate-mark .mark-dark { display: block; }
+  }
+  html[data-theme="dark"] .gate-mark .mark-light { display: none; }
+  html[data-theme="dark"] .gate-mark .mark-dark { display: block; }
+  .gate-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-size: clamp(24px, 4vw, 32px);
+    max-width: 20ch;
+    text-wrap: balance;
+  }
+  .gate-sub {
+    font-family: 'Space Mono', monospace;
+    font-size: 12.5px;
+    color: var(--text-muted);
+    letter-spacing: 0.02em;
+    max-width: 44ch;
+    margin-top: -20px;
+  }
+  .gate-options {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .gate-option {
+    width: 220px;
+    border: 1px solid var(--border);
+    background: var(--bg-raised);
+    border-radius: 18px;
+    padding: 28px 22px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    color: var(--text);
+    font-family: 'Karla', sans-serif;
+    transition: border-color .15s, transform .15s;
+  }
+  .gate-option:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .gate-option:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .gate-glyph { width: 100%; height: 74px; display: flex; align-items: center; justify-content: center; }
+  .gate-glyph svg { stroke: var(--accent); }
+  .gate-option-title { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 19px; }
+  .gate-option-sub { font-size: 12.5px; color: var(--text-muted); line-height: 1.4; }
+
+  /* ---------- top bar ---------- */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+  .topbar-inner {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+  .wordmark {
+    font-family: 'Gilda Display', serif;
+    font-size: 18px;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+  }
+  .wordmark .brand-icon { width: 22px; height: auto; flex: none; }
+  .wordmark .brand-icon.icon-dark { display: none; }
+  @media (prefers-color-scheme: dark) {
+    .wordmark .brand-icon.icon-light { display: none; }
+    .wordmark .brand-icon.icon-dark { display: block; }
+  }
+  :root[data-theme="dark"] .wordmark .brand-icon.icon-light { display: none; }
+  :root[data-theme="dark"] .wordmark .brand-icon.icon-dark { display: block; }
+  :root[data-theme="light"] .wordmark .brand-icon.icon-light { display: block; }
+  :root[data-theme="light"] .wordmark .brand-icon.icon-dark { display: none; }
+  .wordmark .sketch-badge {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: var(--gold);
+    background: var(--gold-soft);
+    border: 1px solid var(--gold-soft-border);
+    padding: 3px 7px;
+    border-radius: 5px;
+  }
+  .toc {
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    flex: 1;
+    min-width: 0;
+  }
+  .toc::-webkit-scrollbar { display: none; }
+  .toc a {
+    flex: none;
+    text-decoration: none;
+    font-family: 'Space Mono', monospace;
+    font-size: 11.5px;
+    letter-spacing: 0.03em;
+    color: var(--text-muted);
+    padding: 7px 11px;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    transition: color .15s, border-color .15s, background .15s;
+  }
+  .toc a:hover { color: var(--text); border-color: var(--border); }
+  .toc a.is-active { color: var(--accent-text); background: var(--accent); }
+
+  /* ---------- hero ---------- */
+  .hero {
+    padding: 76px 0 64px;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero-top {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+    gap: 56px;
+    margin-bottom: 44px;
+  }
+  .hero-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+  }
+  .hero-brand-mark { width: 128px; flex: none; }
+  .hero-brand-mark img { display: block; width: 100%; height: auto; }
+  .hero-brand-mark .mark-dark { display: none; }
+  .hero-brand-text { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+  .hero-wordmark {
+    font-family: 'Gilda Display', serif;
+    font-size: clamp(28px, 3.4vw, 38px);
+    color: var(--accent);
+    line-height: 1;
+  }
+  .hero-divider { width: 64px; height: 1px; background: var(--gold); opacity: .55; }
+  .hero-signature {
+    font-family: 'Space Mono', monospace;
+    font-size: 11.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  @media (prefers-color-scheme: dark) {
+    .hero-brand-mark .mark-light { display: none; }
+    .hero-brand-mark .mark-dark { display: block; }
+  }
+  :root[data-theme="dark"] .hero-brand-mark .mark-light { display: none; }
+  :root[data-theme="dark"] .hero-brand-mark .mark-dark { display: block; }
+  :root[data-theme="light"] .hero-brand-mark .mark-light { display: block; }
+  :root[data-theme="light"] .hero-brand-mark .mark-dark { display: none; }
+  .hero-eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin: 4px 0 0;
+    text-align: center;
+  }
+  .hero-verses { min-width: 0; padding-top: 6px; text-align: right; }
+  @container stage (max-width: 780px) {
+    .hero-top { grid-template-columns: 1fr; gap: 36px; }
+    .hero-verses { padding-top: 0; text-align: left; }
+  }
+  @container stage (max-width: 620px) {
+    .hero-brand-mark { width: 116px; }
+  }
+  .hero-verse { margin-bottom: 30px; }
+  .hero-verse blockquote {
+    margin: 0 0 10px;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 500;
+    color: var(--text);
+    text-wrap: balance;
+  }
+  .hero-verse cite {
+    display: block;
+    font-style: normal;
+    font-family: 'Space Mono', monospace;
+    font-size: 12.5px;
+    color: var(--gold);
+  }
+  .hero-verse-primary blockquote {
+    font-size: clamp(27px, 3.6vw, 39px);
+    line-height: 1.38;
+    letter-spacing: -0.01em;
+    max-width: 34ch;
+    margin-left: auto;
+  }
+  .hero-verse-secondary { margin-bottom: 46px; }
+  .hero-verse-secondary blockquote {
+    font-size: clamp(19px, 2.4vw, 23px);
+    line-height: 1.45;
+    max-width: 40ch;
+    margin-left: auto;
+  }
+  @container stage (max-width: 780px) {
+    .hero-verse-primary blockquote,
+    .hero-verse-secondary blockquote { margin-left: 0; }
+  }
+
+  .hero-body {
+    max-width: 62ch;
+    font-size: 16.5px;
+    color: var(--text-muted);
+  }
+  .hero-body p { margin: 0 0 14px; }
+  .hero-body strong { color: var(--text); font-weight: 600; }
+
+  /* ---------- section shell ---------- */
+  .section {
+    padding: 72px 0;
+    border-bottom: 1px solid var(--border);
+    scroll-margin-top: 68px;
+  }
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+  }
+  .section-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    color: var(--gold);
+    font-variant-numeric: tabular-nums;
+  }
+  .section-kicker {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-size: clamp(24px, 3.2vw, 32px);
+    margin: 4px 0 18px;
+    text-wrap: balance;
+  }
+  .section-copy {
+    max-width: 56ch;
+    color: var(--text-muted);
+    font-size: 15.5px;
+    margin-bottom: 28px;
+  }
+  .section-copy p { margin: 0 0 12px; }
+
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: 'Space Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 4px 9px;
+    border-radius: 999px;
+    margin-bottom: 20px;
+  }
+  .tag--source {
+    background: var(--accent-soft);
+    color: var(--accent);
+    border: 1px solid var(--accent-soft-border);
+  }
+  .tag--example {
+    background: transparent;
+    color: var(--text-muted);
+    border: 1px dashed var(--border);
+  }
+
+  .section-grid {
+    display: grid;
+    grid-template-columns: minmax(0,1fr) minmax(260px, 340px);
+    gap: 48px;
+    align-items: start;
+  }
+  .section.is-reversed .section-grid { grid-template-columns: minmax(260px, 340px) minmax(0,1fr); }
+  .section.is-reversed .section-text { order: 2; }
+  .section.is-reversed .section-phone { order: 1; }
+
+  @container stage (max-width: 780px) {
+    .section-grid,
+    .section.is-reversed .section-grid { grid-template-columns: 1fr; }
+    .section.is-reversed .section-text,
+    .section.is-reversed .section-phone { order: initial; }
+    .section-phone { justify-self: center; }
+  }
+
+  /* ---------- phone frame ---------- */
+  .phone {
+    width: 100%;
+    max-width: 300px;
+    aspect-ratio: 9 / 18.5;
+    border-radius: 34px;
+    border: 2px solid var(--border);
+    background: var(--bg-raised);
+    padding: 9px;
+    box-shadow: var(--shadow);
+    justify-self: end;
+  }
+  .screen {
+    width: 100%;
+    height: 100%;
+    border-radius: 26px;
+    background: var(--phone-bg);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    border: 1px solid var(--border);
+  }
+  .screen-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px 10px;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    flex: none;
+  }
+  .screen-body {
+    flex: 1;
+    min-height: 0;
+    padding: 2px 16px 18px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* ---------- screen content atoms ---------- */
+  .screen-verse {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 17px;
+    line-height: 1.32;
+    color: var(--text);
+    margin: 10px 0 4px;
+  }
+  .screen-cite {
+    font-family: 'Space Mono', monospace;
+    font-size: 10.5px;
+    color: var(--gold);
+  }
+
+  .checklist { display: flex; flex-direction: column; gap: 8px; }
+  .check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    background: var(--bg-raised);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 8px 10px;
+  }
+  .check-item input {
+    appearance: none;
+    width: 16px; height: 16px;
+    border-radius: 5px;
+    border: 1.5px solid var(--accent);
+    margin-top: 1px;
+    flex: none;
+    display: grid;
+    place-content: center;
+  }
+  .check-item input:checked { background: var(--accent); }
+  .check-item input:checked::after {
+    content: "";
+    width: 8px; height: 5px;
+    border-left: 2px solid var(--accent-text);
+    border-bottom: 2px solid var(--accent-text);
+    transform: rotate(-45deg) translate(0,-1px);
+  }
+  .check-item label { font-size: 12px; line-height: 1.35; }
+  .check-item .ci-sub { display:block; font-size: 10px; color: var(--text-muted); margin-top: 1px; }
+
+  .day-counter {
+    font-family: 'Space Mono', monospace;
+    font-size: 10.5px;
+    color: var(--gold);
+    background: var(--gold-soft);
+    border: 1px solid var(--gold-soft-border);
+    align-self: flex-start;
+    padding: 4px 9px;
+    border-radius: 999px;
+  }
+
+  .declaration-card {
+    background: var(--accent-soft);
+    border: 1px solid var(--accent-soft-border);
+    border-radius: 14px;
+    padding: 12px;
+    font-size: 12px;
+    line-height: 1.4;
+    color: var(--text);
+  }
+  .declaration-card p { margin: 0 0 6px; }
+  .declaration-card p:last-child { margin: 0; }
+
+  .value-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+  .value-card {
+    border: 1.5px dashed var(--border);
+    border-radius: 12px;
+    padding: 10px 8px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    justify-content: center;
+    min-height: 62px;
+  }
+  .value-card .vc-num { font-family: 'Space Mono', monospace; font-size: 9.5px; color: var(--text-muted); }
+  .value-card .vc-label { font-size: 10.5px; color: var(--text-muted); font-style: italic; }
+
+  .segmented {
+    display: flex;
+    gap: 4px;
+    background: var(--bg-sunken);
+    border-radius: 10px;
+    padding: 3px;
+  }
+  .segmented span {
+    flex: 1;
+    text-align: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: 0.02em;
+    padding: 6px 2px;
+    border-radius: 7px;
+    color: var(--text-muted);
+  }
+  .segmented span.is-on { background: var(--phone-bg); color: var(--text); box-shadow: var(--shadow); }
+
+  .task-row {
+    display: flex; align-items: center; gap: 8px;
+    padding: 8px 10px;
+    background: var(--bg-raised);
+    border: 1px solid var(--border);
+    border-radius: 11px;
+  }
+  .task-dot { width: 7px; height: 7px; border-radius: 50%; flex: none; }
+  .task-dot.dot-a { background: var(--accent); }
+  .task-dot.dot-g { background: var(--gold); }
+  .task-dot.dot-m { background: var(--text-muted); }
+  .task-row span { font-size: 11.5px; }
+  .task-row .task-when { margin-left: auto; font-family: 'Space Mono', monospace; font-size: 9.5px; color: var(--text-muted); }
+
+  .timeline { position: relative; display: flex; flex-direction: column; }
+  .tl-row { display: grid; grid-template-columns: 34px 1fr; gap: 8px; padding: 5px 0; position: relative; }
+  .tl-time { font-family: 'Space Mono', monospace; font-size: 9px; color: var(--text-muted); padding-top: 3px; }
+  .tl-block { border-radius: 9px; padding: 6px 9px; font-size: 10.5px; border: 1px solid; }
+  .tl-block.b-accent { background: var(--accent-soft); border-color: var(--accent-soft-border); color: var(--text); }
+  .tl-block.b-gold { background: var(--gold-soft); border-color: var(--gold-soft-border); color: var(--text); }
+  .tl-block.b-plain { background: var(--bg-raised); border-color: var(--border); color: var(--text-muted); }
+  .tl-now {
+    position: absolute; left: 34px; right: 0; height: 1.5px; background: var(--gold);
+  }
+  .tl-now::before {
+    content: "agora"; position: absolute; left: -2px; top: -7px;
+    font-family: 'Space Mono', monospace; font-size: 8px; color: var(--gold); background: var(--phone-bg); padding: 0 4px;
+  }
+
+  .annual-list { display: flex; flex-direction: column; gap: 7px; }
+  .annual-row { display: flex; align-items: center; gap: 9px; padding: 7px 9px; border: 1px solid var(--border); border-radius: 10px; background: var(--bg-raised); }
+  .annual-date { font-family: 'Space Mono', monospace; font-size: 9.5px; color: var(--gold); width: 40px; flex: none; }
+  .annual-row span:last-child { font-size: 11px; }
+
+  .more-card {
+    grid-column: 1 / -1;
+    max-width: 640px;
+    margin: 8px auto 0;
+    text-align: center;
+    border: 1.5px dashed var(--border);
+    border-radius: 16px;
+    padding: 22px 24px;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+  .more-card strong { color: var(--text); }
+
+  .screen-nav {
+    display: flex;
+    justify-content: space-around;
+    padding: 11px 6px;
+    border-top: 1px solid var(--border);
+    flex: none;
+  }
+  .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    font-family: 'Space Mono', monospace;
+    font-size: 8.5px;
+    letter-spacing: 0.02em;
+    color: var(--text-muted);
+  }
+  .nav-item .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    border: 1.3px solid var(--text-muted);
+  }
+  .nav-item.is-active { color: var(--accent); }
+  .nav-item.is-active .dot { background: var(--accent); border-color: var(--accent); }
+
+  /* ---------- devotional workstation ---------- */
+  .devo-station {
+    margin-top: 56px;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    background: var(--bg-raised);
+    overflow: hidden;
+  }
+  .devo-tabs {
+    display: flex;
+    gap: 2px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding: 10px;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-sunken);
+  }
+  .devo-tabs::-webkit-scrollbar { display: none; }
+  .devo-tab {
+    flex: none;
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.02em;
+    color: var(--text-muted);
+    background: transparent;
+    border: 1px solid transparent;
+    padding: 9px 14px;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  .devo-tab:hover { color: var(--text); }
+  .devo-tab.is-active { background: var(--bg-raised); border-color: var(--border); color: var(--accent); box-shadow: var(--shadow); }
+  .devo-tab:focus-visible, .devo-method:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
+    outline: 2px solid var(--accent); outline-offset: 2px;
+  }
+
+  .devo-panel { display: none; padding: 30px 32px 36px; }
+  .devo-panel.is-active { display: block; animation: devo-fade .25s ease; }
+  @keyframes devo-fade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+  .devo-intro { max-width: 62ch; color: var(--text-muted); font-size: 14.5px; margin: 0 0 22px; }
+  .devo-intro strong { color: var(--text); }
+
+  /* reading plans */
+  .plan-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px,1fr)); gap: 10px; margin-bottom: 28px; }
+  .plan-card {
+    display: flex; flex-direction: column; gap: 5px;
+    border: 1.5px solid var(--border);
+    border-radius: 13px;
+    padding: 13px 14px;
+    cursor: pointer;
+    background: var(--bg);
+  }
+  .plan-card input { position: absolute; opacity: 0; pointer-events: none; }
+  .plan-card:has(input:checked) { border-color: var(--accent); background: var(--accent-soft); }
+  .plan-name { font-size: 13.5px; font-weight: 600; }
+  .plan-desc { font-size: 11.5px; color: var(--text-muted); line-height: 1.35; }
+
+  .plan-today {
+    display: flex; gap: 20px; align-items: center;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 18px 20px;
+    background: var(--bg);
+    flex-wrap: wrap;
+  }
+  .plan-today-text { flex: 1; min-width: 220px; display: flex; flex-direction: column; gap: 10px; }
+  .plan-today-ref { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 17px; }
+  .mini-check { display: flex; align-items: center; gap: 7px; font-size: 12.5px; color: var(--text-muted); cursor: pointer; width: fit-content; }
+  .mini-check input { width: 15px; height: 15px; accent-color: var(--accent); }
+
+  .ring-progress { position: relative; width: 84px; height: 84px; flex: none; }
+  .ring-progress svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+  .ring-track { fill: none; stroke: var(--ring-track); stroke-width: 6; }
+  .ring-fill { fill: none; stroke: var(--accent); stroke-width: 6; stroke-linecap: round; transition: stroke-dashoffset .6s ease; }
+  .ring-label { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .ring-label strong { font-family: 'Space Mono', monospace; font-size: 13px; }
+  .ring-label span { font-family: 'Space Mono', monospace; font-size: 8.5px; color: var(--text-muted); }
+
+  .day-strip { display: flex; gap: 5px; }
+  .ds-day {
+    width: 24px; height: 24px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Space Mono', monospace; font-size: 9.5px;
+    border: 1.5px solid var(--border); color: var(--text-muted);
+  }
+  .ds-day.is-done { background: var(--accent); border-color: var(--accent); color: var(--accent-text); }
+  .ds-day.is-today { border-color: var(--gold); color: var(--gold); font-weight: 700; }
+
+  .day-strip button.ds-day { appearance: none; -webkit-appearance: none; background: transparent; font-family: 'Space Mono', monospace; padding: 0; cursor: pointer; }
+
+  .week-label { display: block; font-family: 'Space Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--text-muted); margin: 22px 0 10px; }
+  .week-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+  .week-row { display: flex; align-items: center; gap: 12px; border: 1px solid var(--border); border-radius: 11px; padding: 9px 14px; background: var(--bg); font-size: 13px; }
+  .week-row.is-today { border-color: var(--gold); background: var(--gold-soft); }
+  .wr-day { font-family: 'Space Mono', monospace; font-size: 10.5px; color: var(--text-muted); width: 34px; flex: none; }
+  .week-row.is-today .wr-day { color: var(--gold); font-weight: 700; }
+  .wr-ref { flex: 1; font-family: 'Cormorant Garamond', serif; font-size: 15px; }
+  .wr-check { font-family: 'Space Mono', monospace; font-size: 9.5px; text-transform: uppercase; letter-spacing: .04em; color: var(--text-muted); flex: none; }
+  .wr-check.is-today { color: var(--gold); font-weight: 700; }
+
+  .recap-rows { display: flex; flex-direction: column; gap: 12px; margin-top: 12px; }
+  .recap-row { display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+  .recap-value { font-family: 'Cormorant Garamond', serif; font-size: 15.5px; }
+
+  /* devotional material tracker */
+  .material-card { border: 1px solid var(--border); border-radius: 16px; padding: 18px 20px; background: var(--bg); margin-bottom: 18px; }
+  .material-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px,1fr)); gap: 14px; margin: 14px 0 16px; }
+  .mf-label { display: block; font-family: 'Space Mono', monospace; font-size: 9.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--text-muted); margin-bottom: 3px; }
+  .mf-value { font-size: 14px; font-weight: 600; }
+  .format-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+  .chip {
+    font-family: 'Space Mono', monospace; font-size: 10.5px;
+    border: 1px solid var(--border); border-radius: 999px; padding: 5px 11px; color: var(--text-muted);
+  }
+  .chip.is-on { background: var(--accent-soft); border-color: var(--accent-soft-border); color: var(--accent); }
+
+  /* prayer log */
+  .prayer-add { display: flex; gap: 8px; margin-bottom: 18px; }
+  .prayer-add input {
+    flex: 1; font-family: 'Karla', sans-serif; font-size: 14px; padding: 11px 14px;
+    border: 1px solid var(--border); border-radius: 11px; background: var(--bg); color: var(--text);
+  }
+  .prayer-add button, .breath-controls button, .journal-actions button {
+    font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: .02em;
+    background: var(--accent); color: var(--accent-text); border: none;
+    border-radius: 11px; padding: 0 18px; cursor: pointer;
+  }
+  .prayer-add button:hover, .breath-controls button:hover, .journal-actions button:hover { filter: brightness(1.08); }
+  .prayer-list { display: flex; flex-direction: column; gap: 8px; }
+  .prayer-item {
+    display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+    border: 1px solid var(--border); border-radius: 13px; padding: 11px 15px; background: var(--bg);
+  }
+  .prayer-item.is-answered { opacity: .6; }
+  .prayer-item.is-answered .prayer-text { text-decoration: line-through; }
+  .chip-cat { flex: none; }
+  .prayer-text { flex: 1; font-size: 14px; min-width: 160px; }
+  .prayer-status {
+    font-family: 'Space Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: .04em;
+    color: var(--gold); cursor: pointer; user-select: none;
+  }
+  .prayer-item.is-answered .prayer-status { color: var(--accent); }
+
+  /* breathing */
+  .breath-methods { display: flex; gap: 8px; margin-bottom: 26px; }
+  .breath-method {
+    font-family: 'Space Mono', monospace; font-size: 12px; padding: 9px 16px;
+    border: 1px solid var(--border); border-radius: 999px; background: var(--bg); color: var(--text-muted); cursor: pointer;
+  }
+  .breath-method.is-active { background: var(--accent-soft); border-color: var(--accent-soft-border); color: var(--accent); }
+  .breath-stage { display: flex; flex-direction: column; align-items: center; gap: 18px; padding: 10px 0 6px; }
+  .breath-ring { position: relative; width: 220px; height: 220px; }
+  .breath-ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+  .breath-ring .ring-track { stroke-width: 4; }
+  .breath-ring .ring-fill { stroke-width: 4; transition: stroke-dashoffset 1s linear; }
+  .breath-core {
+    position: absolute; inset: 14px; border-radius: 50%;
+    background: var(--accent-soft); border: 1px solid var(--accent-soft-border);
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+    transition: transform 1s ease-in-out;
+  }
+  .breath-phase { font-family: 'Space Mono', monospace; font-size: 13px; letter-spacing: .04em; text-transform: uppercase; color: var(--accent); }
+  .breath-count { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 40px; font-variant-numeric: tabular-nums; }
+  .breath-meta { display: flex; flex-direction: column; align-items: center; gap: 3px; text-align: center; }
+  .breath-meta span:first-child { font-size: 13.5px; }
+  .breath-meta span:last-child { font-family: 'Space Mono', monospace; font-size: 10.5px; color: var(--text-muted); }
+  .breath-controls { display: flex; gap: 10px; }
+  .breath-controls .ghost { background: transparent; color: var(--text-muted); border: 1px solid var(--border); }
+  @media (prefers-reduced-motion: reduce) {
+    .breath-core, .breath-ring .ring-fill { transition: none !important; }
+  }
+
+  /* meditation */
+  .meditation-card { border: 1px solid var(--border); border-radius: 16px; padding: 22px 24px; background: var(--bg); margin: 14px 0 24px; }
+  .med-kicker { font-family: 'Space Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--gold); margin: 0 0 8px; }
+  .med-title { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 500; font-size: 21px; margin: 0 0 14px; text-wrap: balance; }
+  .med-text {
+    max-height: 130px; overflow: hidden; position: relative;
+    font-size: 14.5px; line-height: 1.65; color: var(--text);
+  }
+  .med-text p { margin: 0 0 12px; }
+  .med-text:not(.is-expanded)::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 60px;
+    background: linear-gradient(to bottom, transparent, var(--bg));
+  }
+  .med-text.is-expanded { max-height: none; }
+  .med-toggle {
+    margin-top: 12px; background: none; border: none; color: var(--accent);
+    font-family: 'Space Mono', monospace; font-size: 12px; cursor: pointer; padding: 0;
+    text-decoration: underline; text-underline-offset: 3px;
+  }
+  .med-prompts { max-width: 62ch; }
+  .mp-label { font-family: 'Space Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--text-muted); margin: 0 0 8px; }
+  .med-prompts ul { margin: 0 0 16px; padding-left: 18px; font-size: 14px; color: var(--text-muted); display: flex; flex-direction: column; gap: 5px; }
+
+  textarea {
+    width: 100%; font-family: 'Karla', sans-serif; font-size: 14px; color: var(--text);
+    background: var(--bg); border: 1px solid var(--border); border-radius: 13px; padding: 14px;
+    resize: vertical; line-height: 1.5;
+  }
+  .journal-area { min-height: 120px; }
+  .journal-actions { display: flex; align-items: center; gap: 14px; margin: 12px 0 24px; }
+  .journal-saved { font-family: 'Space Mono', monospace; font-size: 11.5px; color: var(--accent); opacity: 0; transition: opacity .3s ease; }
+  .journal-saved.is-shown { opacity: 1; }
+  .journal-history { display: flex; flex-direction: column; gap: 7px; }
+  .journal-entry { display: flex; gap: 12px; padding: 10px 13px; border: 1px solid var(--border); border-radius: 11px; background: var(--bg); font-size: 13px; }
+  .je-date { font-family: 'Space Mono', monospace; font-size: 10.5px; color: var(--text-muted); flex: none; width: 42px; }
+  .je-preview { color: var(--text-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  @container stage (max-width: 620px) {
+    .devo-panel { padding: 24px 18px 30px; }
+    .plan-today { flex-direction: column; align-items: flex-start; }
+    .breath-ring { width: 180px; height: 180px; }
+  }
+
+  /* ---------- footer ---------- */
+  .closing {
+    padding: 84px 0 40px;
+    text-align: left;
+  }
+  .closing blockquote {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(21px, 2.8vw, 28px);
+    line-height: 1.35;
+    max-width: 38ch;
+    margin: 0 0 14px;
+    text-wrap: balance;
+  }
+  .closing cite {
+    display: block;
+    font-style: normal;
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    color: var(--gold);
+    margin-bottom: 30px;
+  }
+  .closing-note {
+    max-width: 60ch;
+    color: var(--text-muted);
+    font-size: 15px;
+  }
+  .closing-note p { margin: 0 0 14px; }
+  .closing-note strong { color: var(--text); }
+
+  /* ---------- appended report / implementation proposal ---------- */
+  .report-section {
+    background: var(--bg-raised);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 76px 0 84px;
+  }
+  .report-intro { max-width: 74ch; margin-bottom: 56px; }
+  .report-intro .section-title { max-width: 20ch; }
+
+  .symbol-visual { width: 88px; margin-bottom: 16px; }
+  .symbol-visual img { display: block; width: 100%; height: auto; }
+  .symbol-visual .mark-dark { display: none; }
+  @media (prefers-color-scheme: dark) {
+    .symbol-visual .mark-light { display: none; }
+    .symbol-visual .mark-dark { display: block; }
+  }
+  :root[data-theme="dark"] .symbol-visual .mark-light { display: none; }
+  :root[data-theme="dark"] .symbol-visual .mark-dark { display: block; }
+  :root[data-theme="light"] .symbol-visual .mark-light { display: block; }
+  :root[data-theme="light"] .symbol-visual .mark-dark { display: none; }
+  .symbol-apps-label { font-family: 'Space Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--text-muted); margin: 18px 0 10px; }
+  .symbol-apps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 10px; }
+  .symbol-app {
+    display: flex; align-items: center; gap: 14px;
+    border: 1px solid var(--border); border-radius: 14px; padding: 12px 15px; background: var(--bg);
+  }
+  .symbol-app-tile { width: 52px; height: 52px; border-radius: 12px; flex: none; display: flex; align-items: center; justify-content: center; }
+  .symbol-app-tile img { width: 24px; height: 24px; object-fit: contain; }
+  .symbol-app-tile--light { background: #f6f6ee; border: 1px solid #d2d3c2; }
+  .symbol-app-tile--dark { background: #14201c; }
+  .symbol-app-tile--filled img { width: 52px; height: 52px; border-radius: 12px; box-shadow: var(--shadow); }
+  .symbol-app-text strong { display: block; font-size: 13px; margin-bottom: 3px; }
+  .symbol-app-text span { display: block; font-size: 12px; color: var(--text-muted); line-height: 1.45; }
+
+  .report-block { margin-bottom: 52px; }
+  .report-block:last-child { margin-bottom: 0; }
+  .report-h3 {
+    font-family: 'Space Mono', monospace;
+    font-size: 12.5px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin: 0 0 18px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .report-lead { max-width: 68ch; color: var(--text-muted); font-size: 15px; margin: 0 0 20px; }
+  .report-grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 16px; }
+  .report-grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 14px; }
+  .report-card {
+    border: 1px solid var(--border); border-radius: 16px; padding: 20px 22px; background: var(--bg);
+  }
+  .report-card h4 {
+    font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 18px; margin: 0 0 8px;
+  }
+  .report-card p { font-size: 13.5px; color: var(--text-muted); line-height: 1.55; margin: 0; }
+  .report-card p + p { margin-top: 8px; }
+
+  .swatch-row { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 14px; }
+  .swatch { display: flex; flex-direction: column; align-items: center; gap: 6px; width: 68px; }
+  .swatch-chip { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--border); }
+  .swatch span { font-family: 'Space Mono', monospace; font-size: 9px; color: var(--text-muted); text-align: center; }
+
+  .type-row { display: flex; align-items: baseline; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+  .type-row:last-child { border-bottom: none; padding-bottom: 0; }
+  .type-sample { font-size: 22px; color: var(--text); flex: none; min-width: 150px; }
+  .type-meta { display: flex; flex-direction: column; gap: 2px; }
+  .type-meta strong { font-size: 13px; }
+  .type-meta span { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--text-muted); }
+
+  .roadmap-list { list-style: none; margin: 0; padding: 0; counter-reset: roadmap; display: flex; flex-direction: column; gap: 3px; }
+  .roadmap-item {
+    counter-increment: roadmap;
+    display: flex; gap: 16px; align-items: baseline;
+    padding: 13px 0; border-bottom: 1px solid var(--border);
+  }
+  .roadmap-item:last-child { border-bottom: none; }
+  .roadmap-item::before {
+    content: counter(roadmap, decimal-leading-zero);
+    font-family: 'Space Mono', monospace; font-size: 11px; color: var(--gold); flex: none; width: 20px;
+  }
+  .roadmap-item strong { font-size: 14.5px; margin-right: 8px; }
+  .roadmap-item span { font-size: 13.5px; color: var(--text-muted); }
+
+  .settings-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap: 10px; }
+  .settings-item {
+    border: 1px solid var(--border); border-radius: 13px; padding: 14px 16px; background: var(--bg);
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .settings-item strong { font-size: 13.5px; }
+  .settings-item span { font-size: 12.5px; color: var(--text-muted); line-height: 1.5; }
+
+  .phase-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 14px; }
+  .phase-card { border: 1px dashed var(--border); border-radius: 16px; padding: 18px 20px; }
+  .phase-card .mf-label { margin-bottom: 6px; }
+  .phase-card h4 { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 17px; margin: 0 0 8px; }
+  .phase-card p { font-size: 13.5px; color: var(--text-muted); line-height: 1.55; margin: 0; }
+
+  @container stage (max-width: 620px) {
+    .report-section { padding: 56px 0 64px; }
+    .type-sample { font-size: 19px; min-width: 0; }
+    .type-row { flex-direction: column; gap: 4px; }
+  }
+
+  footer.foot {
+    padding: 28px 0 60px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  @container stage (max-width: 560px) {
+    .topbar-inner { padding: 12px 16px; gap: 12px; }
+    .wrap { padding: 0 16px; }
+    .hero { padding: 52px 0 44px; }
+    .section { padding: 52px 0; }
+    .value-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+
+<div class="intro-splash" id="introSplash">
+  <video id="introVideo" autoplay muted playsinline preload="auto">
+    <source src="data:video/webm;base64,__INTRO_WEBM__" type="video/webm" />
+    <source src="data:video/mp4;base64,__INTRO_MP4__" type="video/mp4" />
+  </video>
+  <button class="intro-skip" id="introSkip" type="button">pular</button>
+</div>
+
+<div class="gate" id="gate">
+  <div class="gate-mark">
+    <img class="mark-light" src="data:image/png;base64,__ICON_GREEN__" alt="" />
+    <img class="mark-dark" src="data:image/png;base64,__ICON_CREAM__" alt="" />
+  </div>
+  <div>
+    <p class="gate-title">Como visualizar este esboço?</p>
+    <p class="gate-sub">a tela escolhida vem travada no layout testado pra ela — sem depender do tamanho da janela</p>
+  </div>
+  <div class="gate-options">
+    <button class="gate-option" id="gateDesktop" type="button">
+      <span class="gate-glyph"><svg width="60" height="46" viewBox="0 0 60 46" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="54" height="34" rx="3" stroke="currentColor" stroke-width="2"/><line x1="22" y1="44" x2="38" y2="44" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="30" y1="37" x2="30" y2="44" stroke="currentColor" stroke-width="2"/></svg></span>
+      <span class="gate-option-title">Desktop</span>
+      <span class="gate-option-sub">tela cheia, navegação por abas no topo</span>
+    </button>
+    <button class="gate-option" id="gateMobile" type="button">
+      <span class="gate-glyph"><svg width="28" height="48" viewBox="0 0 28 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="24" height="44" rx="5" stroke="currentColor" stroke-width="2"/><line x1="10" y1="41" x2="18" y2="41" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+      <span class="gate-option-title">Celular</span>
+      <span class="gate-option-sub">largura de aparelho real, com moldura</span>
+    </button>
+  </div>
+</div>
+
+<div class="device-toggle" id="deviceToggle">
+  <button id="toggleDesktop" type="button">desktop</button>
+  <button id="toggleMobile" type="button">celular</button>
+</div>
+
+<div id="deviceStage">
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="wordmark">
+      <img class="brand-icon icon-light" src="data:image/png;base64,__ICON_GREEN__" alt="" />
+      <img class="brand-icon icon-dark" src="data:image/png;base64,__ICON_CREAM__" alt="" />
+      Gestão da Vida <span class="sketch-badge">esboço</span>
+    </div>
+    <nav class="toc" id="toc">
+      <a href="#lema">lema</a>
+      <a href="#valores">valores</a>
+      <a href="#hoje">hoje</a>
+      <a href="#tarefas">tarefas</a>
+      <a href="#pontuais">pontuais</a>
+      <a href="#agenda">agenda</a>
+      <a href="#anuais">anuais</a>
+      <a href="#legado">legado</a>
+    </nav>
+  </div>
+</div>
+
+<main class="wrap">
+
+  <section class="hero">
+    <div class="hero-top">
+      <div class="hero-brand">
+        <div class="hero-brand-mark">
+          <img class="mark-light" src="data:image/png;base64,__COMPASS_GREEN__" alt="" />
+          <img class="mark-dark" src="data:image/png;base64,__COMPASS_DARK__" alt="" />
+        </div>
+        <div class="hero-brand-text">
+          <span class="hero-wordmark">Gestão da Vida</span>
+          <span class="hero-divider"></span>
+          <span class="hero-signature">by Rubens Luiz Bernardes da Costa</span>
+        </div>
+        <p class="hero-eyebrow">uma pré-visualização — não uma decisão tomada</p>
+      </div>
+      <div class="hero-verses">
+        <div class="hero-verse hero-verse-primary">
+          <blockquote>"Mas em nada tenho a minha vida como preciosa para mim mesmo, contanto que cumpra com alegria a minha carreira, e o ministério que recebi do Senhor Jesus."</blockquote>
+          <cite>Atos 20:24 — o lema que abre a planilha original</cite>
+        </div>
+        <div class="hero-verse hero-verse-secondary">
+          <blockquote>"Porque dele e por ele, e para ele, são todas as coisas; glória, pois, a ele eternamente. Amém."</blockquote>
+          <cite>Romanos 11:36</cite>
+        </div>
+      </div>
+    </div>
+    <div class="hero-body">
+      <p>Este é um primeiro esboço de como a <strong>Gestão da Vida</strong> poderia se tornar um aplicativo — construído a partir do que já foi compartilhado até aqui: o devocional dos 7 passos, as Declarações de Fé, e a estrutura da planilha original, tela por tela, na mesma ordem das abas.</p>
+      <p>Não é o produto final, nem um caminho fechado. É um ponto de partida concreto para a conversa — o conteúdo ainda não compartilhado aparece aqui como espaço em aberto.</p>
+    </div>
+  </section>
+
+  <section class="section is-reversed" id="lema">
+    <div class="section-grid">
+      <div class="section-phone">
+        <div class="phone"><div class="screen">
+          <div class="screen-bar"><span>aba 01</span><span>lema de vida</span></div>
+          <div class="screen-body">
+            <div class="screen-verse">"Mas em nada tenho a minha vida como preciosa para mim mesmo, contanto que cumpra com alegria a minha carreira, e o ministério que recebi do Senhor Jesus."</div>
+            <div class="screen-cite">Atos 20:24</div>
+            <div class="screen-verse" style="font-size:14px; margin-top:14px;">"Porque dele e por ele, e para ele, são todas as coisas; glória, pois, a ele eternamente. Amém."</div>
+            <div class="screen-cite">Romanos 11:36</div>
+          </div>
+          <div class="screen-nav">
+            <div class="nav-item"><span class="dot"></span>hoje</div>
+            <div class="nav-item is-active"><span class="dot"></span>base</div>
+            <div class="nav-item"><span class="dot"></span>tarefas</div>
+            <div class="nav-item"><span class="dot"></span>agenda</div>
+            <div class="nav-item"><span class="dot"></span>perfil</div>
+          </div>
+        </div></div>
+      </div>
+      <div class="section-text">
+        <div class="section-head">
+          <span class="section-num">aba 01</span>
+          <span class="section-kicker">lema de vida</span>
+        </div>
+        <h2 class="section-title">A primeira aba abre com o que sustenta todas as outras</h2>
+        <span class="tag tag--source">conteúdo já compartilhado</span>
+        <div class="section-copy">
+          <p>Na planilha original, a primeira aba não é uma tarefa — é a base. Por isso, no app, essa tela também vem antes de qualquer lista: é a tela que se abre e se lê antes de ver o que precisa ser feito no dia.</p>
+          <p>Atos 20:24 e Romanos 11:36, lado a lado — a carreira entregue ao ministério, e tudo devolvido a Deus em glória.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="valores">
+    <div class="section-grid">
+      <div class="section-text">
+        <div class="section-head">
+          <span class="section-num">aba 02</span>
+          <span class="section-kicker">valores</span>
+        </div>
+        <h2 class="section-title">Um espaço pronto, à espera dos valores pessoais</h2>
+        <span class="tag tag--example">exemplo de layout — sem conteúdo real ainda</span>
+        <div class="section-copy">
+          <p>A segunda aba traz algo como uma lista de valores pessoais. Como a lista completa ainda não foi compartilhada, aqui fica só a moldura: cartões prontos para receber cada valor, um de cada vez.</p>
+        </div>
+      </div>
+      <div class="section-phone">
+        <div class="phone"><div class="screen">
+          <div class="screen-bar"><span>aba 02</span><span>valores</span></div>
+          <div class="screen-body">
+            <div class="value-grid">
+              <div class="value-card"><span class="vc-num">01</span><span class="vc-label">a definir</span></div>
+              <div class="value-card"><span class="vc-num">02</span><span class="vc-label">a definir</span></div>
+              <div class="value-card"><span class="vc-num">03</span><span class="vc-label">a definir</span></div>
+              <div class="value-card"><span class="vc-num">04</span><span class="vc-label">a definir</span></div>
+              <div class="value-card"><span class="vc-num">05</span><span class="vc-label">a definir</span></div>
+              <div class="value-card"><span class="vc-num">06</span><span class="vc-label">a definir</span></div>
+            </div>
+          </div>
+          <div class="screen-nav">
+            <div class="nav-item"><span class="dot"></span>hoje</div>
+            <div class="nav-item is-active"><span class="dot"></span>base</div>
+            <div class="nav-item"><span class="dot"></span>tarefas</div>
+            <div class="nav-item"><span class="dot"></span>agenda</div>
+            <div class="nav-item"><span class="dot"></span>perfil</div>
+          </div>
+        </div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section is-reversed" id="hoje">
+    <div class="section-grid">
+      <div class="section-text">
+        <div class="section-head">
+          <span class="section-kicker">a tela de hoje</span>
+        </div>
+        <h2 class="section-title">O devocional diário, do jeito que já é praticado — só que completo</h2>
+        <span class="tag tag--source">conteúdo já compartilhado, com ferramentas novas</span>
+        <div class="section-copy">
+          <p>Fica logo depois do lema e dos valores — é aqui que essa base vira prática, todo dia, antes de chegar nas tarefas e na agenda.</p>
+          <p>Os 7 passos já descritos — leitura bíblica, devocional, oração, declaração, respiração, meditação e escrita — continuam na mesma ordem. A diferença é que cada um ganha uma ferramenta de verdade por trás, em vez de só um item para marcar.</p>
+          <p>No celular, é um roteiro guiado. Logo abaixo, uma estação de trabalho para testar cada peça — os controles de respiração e o registro de oração já funcionam de verdade nesta prévia.</p>
+        </div>
+      </div>
+      <div class="section-phone">
+        <div class="phone"><div class="screen">
+          <div class="screen-bar"><span>hoje · manhã</span><span class="day-counter">dia 1/31</span></div>
+          <div class="screen-body">
+            <div class="checklist">
+              <div class="check-item"><input type="checkbox" checked readonly/><label>Leitura bíblica<span class="ci-sub">plano do dia</span></label></div>
+              <div class="check-item"><input type="checkbox" checked readonly/><label>Leitura de um devocional<span class="ci-sub">5 min</span></label></div>
+              <div class="check-item"><input type="checkbox" readonly/><label>Oração<span class="ci-sub">roteiro guiado</span></label></div>
+              <div class="check-item"><input type="checkbox" readonly/><label>Declaração de frases positivas</label></div>
+            </div>
+            <div class="declaration-card">
+              <p>"Deus está comigo. Eu já consegui. Já deu tudo certo."</p>
+              <p>"Não me comparo com ninguém e decido hoje mesmo buscar encontrar o meu caminho e viver nele."</p>
+            </div>
+          </div>
+          <div class="screen-nav">
+            <div class="nav-item is-active"><span class="dot"></span>hoje</div>
+            <div class="nav-item"><span class="dot"></span>base</div>
+            <div class="nav-item"><span class="dot"></span>tarefas</div>
+            <div class="nav-item"><span class="dot"></span>agenda</div>
+            <div class="nav-item"><span class="dot"></span>perfil</div>
+          </div>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="devo-station" id="devoStation">
+      <div class="devo-tabs" role="tablist" id="devoTabs">
+        <button class="devo-tab is-active" data-step="biblia" type="button">01 · Bíblia</button>
+        <button class="devo-tab" data-step="devocional" type="button">02 · Devocional</button>
+        <button class="devo-tab" data-step="oracao" type="button">03 · Oração</button>
+        <button class="devo-tab" data-step="declaracao" type="button">04 · Declaração</button>
+        <button class="devo-tab" data-step="respiracao" type="button">05 · Respiração</button>
+        <button class="devo-tab" data-step="meditacao" type="button">06 · Meditação</button>
+        <button class="devo-tab" data-step="escrever" type="button">07 · Escrever</button>
+      </div>
+
+      <div class="devo-panel is-active" data-panel="biblia">
+        <p class="devo-intro">Quatro planos de leitura bíblica padronizados, prontos de fábrica — dá pra escolher um e seguir o roteiro dia a dia, sem precisar montar nada. Mais formatos entram depois, sob demanda. Clique em um plano pra ver como fica a semana nele.</p>
+        <div class="plan-grid" id="planGrid">
+          <label class="plan-card" data-plan="0"><input type="radio" name="plan" checked><span class="plan-name">Bíblia em 1 ano</span><span class="plan-desc">~3-4 capítulos por dia, do Gênesis ao Apocalipse</span></label>
+          <label class="plan-card" data-plan="1"><input type="radio" name="plan"><span class="plan-name">Bíblia em 2 anos</span><span class="plan-desc">ritmo mais leve, cerca de 2 capítulos por dia</span></label>
+          <label class="plan-card" data-plan="2"><input type="radio" name="plan"><span class="plan-name">Velho Testamento + Salmos/Provérbios + Novo Testamento</span><span class="plan-desc">um trecho de cada frente, todo dia, em 1 ano</span></label>
+          <label class="plan-card" data-plan="3"><input type="radio" name="plan"><span class="plan-name">Novo Testamento em 90 dias</span><span class="plan-desc">ritmo mais rápido, focado nos evangelhos em diante</span></label>
+        </div>
+        <div class="plan-today">
+          <div class="ring-progress">
+            <svg viewBox="0 0 80 80"><circle class="ring-track" cx="40" cy="40" r="34"/><circle class="ring-fill" id="bibleRingFill" cx="40" cy="40" r="34" stroke-dasharray="213.6" stroke-dashoffset="103.6"/></svg>
+            <div class="ring-label"><strong id="bibleDayNum">dia 188</strong><span id="bibleDayTotal">de 365</span></div>
+          </div>
+          <div class="plan-today-text">
+            <span class="tag tag--example" style="margin:0;">exemplo — plano ilustrativo</span>
+            <div class="plan-today-ref" id="bibleTodayRef">2 Reis 4–5 · Salmo 89 · Atos 10</div>
+            <label class="mini-check"><input type="checkbox"> marcar como lido hoje</label>
+          </div>
+        </div>
+        <span class="week-label">a semana neste plano</span>
+        <ul class="week-list" id="bibleWeekList">
+          <li class="week-row"><span class="wr-day">Seg</span><span class="wr-ref">1 Reis 20–21 · Salmo 84</span><span class="wr-check is-done">lido</span></li>
+          <li class="week-row"><span class="wr-day">Ter</span><span class="wr-ref">1 Reis 22 · Salmo 85</span><span class="wr-check is-done">lido</span></li>
+          <li class="week-row"><span class="wr-day">Qua</span><span class="wr-ref">2 Reis 1–2 · Salmo 86</span><span class="wr-check is-done">lido</span></li>
+          <li class="week-row"><span class="wr-day">Qui</span><span class="wr-ref">2 Reis 3 · Salmo 87 · Atos 8</span><span class="wr-check is-done">lido</span></li>
+          <li class="week-row"><span class="wr-day">Sex</span><span class="wr-ref">2 Reis 4 · Salmo 88 · Atos 9</span><span class="wr-check is-done">lido</span></li>
+          <li class="week-row"><span class="wr-day">Sáb</span><span class="wr-ref">2 Reis 4 (cont.) · Atos 9 (cont.)</span><span class="wr-check is-done">lido</span></li>
+          <li class="week-row is-today"><span class="wr-day">Dom</span><span class="wr-ref">2 Reis 4–5 · Salmo 89 · Atos 10</span><span class="wr-check is-today">hoje</span></li>
+        </ul>
+      </div>
+
+      <div class="devo-panel" data-panel="devocional">
+        <p class="devo-intro">Cada devocional tem seu próprio formato de dias — alguns por data do calendário, outros por semana, outros só contam sequencialmente. O cadastro é feito uma vez, e o app passa a acompanhar do jeito certo.</p>
+        <div class="material-card">
+          <span class="tag tag--example" style="margin:0;">exemplo preenchido</span>
+          <div class="material-grid">
+            <div><span class="mf-label">material</span><span class="mf-value">Confiando em Deus Dia a Dia</span></div>
+            <div><span class="mf-label">autora</span><span class="mf-value">Joyce Meyer</span></div>
+            <div><span class="mf-label">duração</span><span class="mf-value">365 dias</span></div>
+            <div><span class="mf-label">organizado por</span><span class="mf-value">data do calendário</span></div>
+          </div>
+          <div class="format-chips">
+            <span class="chip is-on">por data · 1 jan – 31 dez</span>
+            <span class="chip">por semana · semana 1, dia 1</span>
+            <span class="chip">por número · dia 1, dia 2…</span>
+          </div>
+        </div>
+        <div class="meditation-card">
+          <span class="tag tag--source" style="margin:0 0 12px;">conteúdo já compartilhado — usado aqui como exemplo de estilo devocional</span>
+          <p class="med-kicker">leitura do dia · 8 de julho</p>
+          <h3 class="med-title">Ninguém pode te amar como Jesus te ama</h3>
+          <div class="med-text" id="devoText">
+            <p>O coração humano não tem a capacidade de dar o amor que você precisa para ser feliz. A limitação do coração humano é grande, pois ele não pode fazer nada por si mesmo. Ele dependerá sempre de um outro coração que o ajude e que igualmente o ame, para que possa também ser feliz.</p>
+            <p>Nessas condições, o coração humano está sempre sujeito às limitações de um outro coração, às vezes até mesmo mais frágil e muito mais carente que o nosso próprio — aumentando, cada vez mais, o círculo vicioso da infelicidade. Um carente procura outro carente; um frágil se apoia em outro frágil, na esperança de que cada um dê ao outro a felicidade que ambos não têm. O resultado disso é a queda, pois estaríamos nos apoiando em algo sem sustentação em si mesmo.</p>
+            <p>É nesse momento de angústia e solidão que devemos nos lembrar daquela frase: Jesus te ama — com um amor que não nasce do coração humano, mas do coração de Deus. Ninguém pode te amar como Jesus te ama, simplesmente porque Jesus não somente tem amor, Ele é o amor.</p>
+            <p>Jesus não esperou ser amado por você para também te amar. Ele já te ama — agora, ontem, amanhã e sempre. Seu amor divino não estabelece condições. Jesus te ama como você é: Ele não olha a sua aparência, mas vê o seu coração. E é ali que Ele quer habitar, para lavar as feridas e secar as lágrimas — porque você é importante demais para Ele.</p>
+            <p>O coração humano não tem culpa por ser limitado. Mas quando você aceita e recebe esse amor eterno, incondicional — esse amor que dá paz, alegria e esperança — o seu coração humano se transforma, e nele passa a habitar o amor de Jesus Cristo. Só esse amor tem a capacidade de dar tudo o que você precisa para ser feliz.</p>
+          </div>
+          <button class="med-toggle" id="devoToggle" type="button">ler completo</button>
+        </div>
+        <label class="mini-check" style="margin-bottom:24px;"><input type="checkbox" checked> lido hoje</label>
+        <span class="week-label">a semana neste devocional <span style="text-transform:none;letter-spacing:0;">— títulos ilustrativos</span></span>
+        <ul class="week-list">
+          <li class="week-row"><span class="wr-day">2 jul</span><span class="wr-ref">Descanse na fidelidade de Deus</span><span class="wr-check is-done">lido</span></li>
+          <li class="week-row"><span class="wr-day">3 jul</span><span class="wr-ref">Coragem para o dia difícil</span><span class="wr-check is-done">lido</span></li>
+          <li class="week-row"><span class="wr-day">4 jul</span><span class="wr-ref">Gratidão em todas as circunstâncias</span><span class="wr-check is-done">lido</span></li>
+          <li class="week-row"><span class="wr-day">5 jul</span><span class="wr-ref">A paz que excede todo entendimento</span><span class="wr-check is-done">lido</span></li>
+          <li class="week-row"><span class="wr-day">6 jul</span><span class="wr-ref">Confiar quando não se entende</span><span class="wr-check is-done">lido</span></li>
+          <li class="week-row"><span class="wr-day">7 jul</span><span class="wr-ref">Deus cuida dos detalhes</span><span class="wr-check is-done">lido</span></li>
+          <li class="week-row is-today"><span class="wr-day">8 jul</span><span class="wr-ref">Ninguém pode te amar como Jesus te ama</span><span class="wr-check is-today">hoje</span></li>
+        </ul>
+      </div>
+
+      <div class="devo-panel" data-panel="oracao">
+        <p class="devo-intro">Um registro contínuo, não uma lista que zera todo dia — o pedido fica guardado até ser marcado como respondido. Este exemplo já é interativo: é possível adicionar um pedido e clicar em "orando" para marcar como respondido.</p>
+        <form class="prayer-add" id="prayerForm">
+          <input type="text" id="prayerInput" placeholder="pelo que você quer orar?" maxlength="80" />
+          <button type="submit">adicionar</button>
+        </form>
+        <div class="prayer-list" id="prayerList">
+          <div class="prayer-item"><span class="chip chip-cat">família</span><span class="prayer-text">Saúde da minha mãe</span><span class="prayer-status">orando</span></div>
+          <div class="prayer-item"><span class="chip chip-cat">trabalho</span><span class="prayer-text">Sabedoria pra decisão do semestre</span><span class="prayer-status">orando</span></div>
+          <div class="prayer-item"><span class="chip chip-cat">saúde</span><span class="prayer-text">Recuperação do joelho, pra voltar a caminhar todo dia</span><span class="prayer-status">orando</span></div>
+          <div class="prayer-item is-answered"><span class="chip chip-cat">igreja</span><span class="prayer-text">Mentoria Gestão da Vida decolar</span><span class="prayer-status">respondido</span></div>
+          <div class="prayer-item is-answered"><span class="chip chip-cat">família</span><span class="prayer-text">Reconciliação com meu irmão</span><span class="prayer-status">respondido</span></div>
+        </div>
+      </div>
+
+      <div class="devo-panel" data-panel="declaracao">
+        <p class="devo-intro">Vem direto do material de <strong>Declarações de Fé</strong> já compartilhado — um dia de cada vez, do dia 1 ao 31, na ordem original. Clique em outro dia da semana pra ver o texto correspondente (dias 1 a 7 já estão aqui na íntegra).</p>
+        <div class="declaration-card" style="font-size:14px; max-width:60ch; margin-bottom:20px;" id="declText">
+          <p>"Deus está comigo. Eu já consegui. Já deu tudo certo."</p>
+          <p>"Aceito as coisas como elas são e procuro mudar aquelas que estão em meu poder de transformação."</p>
+          <p>"Não me comparo com ninguém e decido hoje mesmo buscar encontrar o meu caminho e viver nele."</p>
+        </div>
+        <span class="tag tag--source" style="margin-bottom:12px;" id="declTag">conteúdo já compartilhado — dia 1 de 31</span>
+        <div class="day-strip" id="declDayStrip">
+          <button type="button" class="ds-day is-today" data-day="1">1</button>
+          <button type="button" class="ds-day" data-day="2">2</button>
+          <button type="button" class="ds-day" data-day="3">3</button>
+          <button type="button" class="ds-day" data-day="4">4</button>
+          <button type="button" class="ds-day" data-day="5">5</button>
+          <button type="button" class="ds-day" data-day="6">6</button>
+          <button type="button" class="ds-day" data-day="7">7</button>
+        </div>
+      </div>
+
+      <div class="devo-panel" data-panel="respiracao">
+        <p class="devo-intro">Duas abordagens, um só mecanismo: o círculo mostra quando inspirar e quando soltar — basta acompanhar. As duas funcionam de verdade nesta prévia.</p>
+        <div class="breath-methods">
+          <button class="breath-method is-active" data-method="mindful" type="button">Mindfulness</button>
+          <button class="breath-method" data-method="wimhof" type="button">Método Wim Hof</button>
+        </div>
+        <div class="breath-stage">
+          <div class="breath-ring">
+            <svg viewBox="0 0 200 200"><circle class="ring-track" cx="100" cy="100" r="88"/><circle class="ring-fill" id="breathRingFill" cx="100" cy="100" r="88" stroke-dasharray="553" stroke-dashoffset="553"/></svg>
+            <div class="breath-core" id="breathCore">
+              <span class="breath-phase" id="breathPhase">Pronto</span>
+              <span class="breath-count" id="breathCount">—</span>
+            </div>
+          </div>
+          <div class="breath-meta">
+            <span id="breathMethodLabel">Respiração em caixa — inspire, segure, expire, segure (4-4-4-4)</span>
+            <span id="breathRoundLabel">4 rondas</span>
+          </div>
+          <div class="breath-controls">
+            <button id="breathStart" type="button">Começar</button>
+            <button id="breathReset" class="ghost" type="button">Reiniciar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="devo-panel" data-panel="meditacao">
+        <p class="devo-intro">Sem texto pronto pra ler aqui — é um espaço de pausa pra perceber o que ficou dos passos anteriores: o que foi lido, o que foi orado, o que foi declarado. O recap abaixo muda de acordo com o que for escolhido nas abas de Bíblia e Declaração desta prévia.</p>
+        <div class="meditation-card">
+          <p class="med-kicker">o que ficou de hoje</p>
+          <div class="recap-rows">
+            <div class="recap-row"><span class="mf-label">bíblia</span><span class="recap-value" id="recapBiblia">2 Reis 4–5 · Salmo 89 · Atos 10</span></div>
+            <div class="recap-row"><span class="mf-label">declaração</span><span class="recap-value" id="recapDecl">"Deus está comigo. Eu já consegui. Já deu tudo certo."</span></div>
+            <div class="recap-row"><span class="mf-label">oração</span><span class="recap-value">o que foi trazido a Deus na aba anterior</span></div>
+          </div>
+        </div>
+        <div class="med-prompts">
+          <p class="mp-label">pra meditar:</p>
+          <ul>
+            <li>O que ficou mais forte depois da leitura e da declaração de hoje?</li>
+            <li>Existe alguma emoção — paz, inquietação, alívio — que vale a pena parar e perceber agora?</li>
+            <li>Há algo nisso que precisa ser devolvido a Deus, ou levado adiante no resto do dia?</li>
+          </ul>
+          <textarea rows="4" placeholder="escreva o que vier — este espaço não fica salvo depois que a página fecha."></textarea>
+        </div>
+      </div>
+
+      <div class="devo-panel" data-panel="escrever">
+        <p class="devo-intro">O sétimo passo é só a página em branco — sem prompt, sem etapa. Um espaço pra fechar o devocional escrevendo o que ficou do dia.</p>
+        <textarea class="journal-area" id="journalArea" placeholder="o que você quer guardar do dia de hoje?"></textarea>
+        <div class="journal-actions">
+          <button id="journalSave" type="button">Salvar</button>
+          <span id="journalSaved" class="journal-saved">salvo agora há pouco</span>
+        </div>
+        <div class="journal-history" id="journalHistory">
+          <div class="journal-entry"><span class="je-date">7 jul</span><span class="je-preview">Dia puxado, mas consegui separar um tempo antes da correria da faculdade...</span></div>
+          <div class="journal-entry"><span class="je-date">6 jul</span><span class="je-preview">Hoje percebi que estava carregando uma preocupação que nem era minha pra carregar...</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section is-reversed" id="tarefas">
+    <div class="section-grid">
+    <div class="section-phone">
+      <div class="phone"><div class="screen">
+        <div class="screen-bar"><span>aba 03</span><span>tarefas</span></div>
+        <div class="screen-body">
+          <div class="segmented"><span class="is-on">diária</span><span>semanal</span><span>quinzenal</span><span>mensal</span></div>
+          <div class="checklist">
+            <div class="task-row"><span class="task-dot dot-a"></span><span>Estudar para a aula</span></div>
+            <div class="task-row"><span class="task-dot dot-g"></span><span>Responder alunos</span></div>
+            <div class="task-row"><span class="task-dot dot-m"></span><span>Revisar processos</span></div>
+            <div class="task-row"><span class="task-dot dot-a"></span><span>Exercício físico</span></div>
+          </div>
+          <span class="tag tag--example" style="margin:0;align-self:flex-start;">exemplos ilustrativos</span>
+        </div>
+        <div class="screen-nav">
+          <div class="nav-item"><span class="dot"></span>hoje</div>
+          <div class="nav-item"><span class="dot"></span>base</div>
+          <div class="nav-item is-active"><span class="dot"></span>tarefas</div>
+          <div class="nav-item"><span class="dot"></span>agenda</div>
+          <div class="nav-item"><span class="dot"></span>perfil</div>
+        </div>
+      </div></div>
+    </div>
+    <div class="section-text">
+      <div class="section-head">
+        <span class="section-num">aba 03</span>
+        <span class="section-kicker">tarefas cíclicas</span>
+      </div>
+      <h2 class="section-title">Diária, semanal, quinzenal, mensal — um filtro, não quatro listas</h2>
+      <span class="tag tag--example">exemplo de layout — sem conteúdo real ainda</span>
+      <div class="section-copy">
+        <p>Em vez de quatro abas separadas, a ideia é um único filtro no topo: a frequência é escolhida e o app mostra só o que é daquele ritmo. As tarefas acima são só exemplos plausíveis para mostrar a mecânica — não correspondem às tarefas reais.</p>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <section class="section" id="pontuais">
+    <div class="section-grid">
+      <div class="section-text">
+        <div class="section-head">
+          <span class="section-num">aba 04</span>
+          <span class="section-kicker">tarefas pontuais</span>
+        </div>
+        <h2 class="section-title">O que não se repete — separado do que é rotina</h2>
+        <span class="tag tag--example">exemplo de layout — sem conteúdo real ainda</span>
+        <div class="section-copy">
+          <p>Tarefas avulsas, sem ciclo, ficam numa lista à parte — cada uma com um prazo próprio, pra não se misturar com a rotina da aba anterior.</p>
+        </div>
+      </div>
+      <div class="section-phone">
+        <div class="phone"><div class="screen">
+          <div class="screen-bar"><span>aba 04</span><span>pontuais</span></div>
+          <div class="screen-body">
+            <div class="checklist">
+              <div class="task-row"><span class="task-dot dot-g"></span><span>Renovar documento</span><span class="task-when">até 14/07</span></div>
+              <div class="task-row"><span class="task-dot dot-a"></span><span>Preparar palestra</span><span class="task-when">até 22/07</span></div>
+              <div class="task-row"><span class="task-dot dot-m"></span><span>Ligar pro contador</span><span class="task-when">sem prazo</span></div>
+            </div>
+          </div>
+          <div class="screen-nav">
+            <div class="nav-item"><span class="dot"></span>hoje</div>
+            <div class="nav-item"><span class="dot"></span>base</div>
+            <div class="nav-item is-active"><span class="dot"></span>tarefas</div>
+            <div class="nav-item"><span class="dot"></span>agenda</div>
+            <div class="nav-item"><span class="dot"></span>perfil</div>
+          </div>
+        </div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section is-reversed" id="agenda">
+    <div class="section-grid">
+    <div class="section-phone">
+      <div class="phone"><div class="screen">
+        <div class="screen-bar"><span>aba 05</span><span>agenda</span></div>
+        <div class="screen-body">
+          <div class="timeline">
+            <div class="tl-row"><span class="tl-time">07:00</span><div class="tl-block b-gold">Devocional</div></div>
+            <div class="tl-row"><span class="tl-time">09:00</span><div class="tl-block b-accent">Aula — Direito Constitucional</div></div>
+            <div class="tl-row"><span class="tl-time">14:00</span><div class="tl-block b-plain">Atendimento TJDFT</div></div>
+            <div class="tl-now" style="top:118px;"></div>
+            <div class="tl-row"><span class="tl-time">19:00</span><div class="tl-block b-plain">Mentoria — Gestão da Vida</div></div>
+          </div>
+        </div>
+        <div class="screen-nav">
+          <div class="nav-item"><span class="dot"></span>hoje</div>
+          <div class="nav-item"><span class="dot"></span>base</div>
+          <div class="nav-item"><span class="dot"></span>tarefas</div>
+          <div class="nav-item is-active"><span class="dot"></span>agenda</div>
+          <div class="nav-item"><span class="dot"></span>perfil</div>
+        </div>
+      </div></div>
+    </div>
+    <div class="section-text">
+      <div class="section-head">
+        <span class="section-num">aba 05</span>
+        <span class="section-kicker">agenda</span>
+      </div>
+      <h2 class="section-title">Um dia, em linha do tempo</h2>
+      <span class="tag tag--example">exemplo de layout — sem conteúdo real ainda</span>
+      <div class="section-copy">
+        <p>Aqui, a grade de planilha dá lugar a uma linha do tempo visual, com uma marcação de "agora" — pensada para abrir de manhã e mostrar o dia inteiro num relance.</p>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <section class="section" id="anuais">
+    <div class="section-grid">
+      <div class="section-text">
+        <div class="section-head">
+          <span class="section-num">aba 06</span>
+          <span class="section-kicker">eventos anuais</span>
+        </div>
+        <h2 class="section-title">O que se repete uma vez por ano</h2>
+        <span class="tag tag--example">exemplo de layout — sem conteúdo real ainda</span>
+        <div class="section-copy">
+          <p>Datas fixas do calendário — aniversários, começo de semestre, datas de família — numa lista separada da agenda do dia a dia.</p>
+        </div>
+      </div>
+      <div class="section-phone">
+        <div class="phone"><div class="screen">
+          <div class="screen-bar"><span>aba 06</span><span>anuais</span></div>
+          <div class="screen-body">
+            <div class="annual-list">
+              <div class="annual-row"><span class="annual-date">MAR</span><span>Início do semestre</span></div>
+              <div class="annual-row"><span class="annual-date">JUN</span><span>Aniversário de casamento</span></div>
+              <div class="annual-row"><span class="annual-date">OUT</span><span>Aniversário</span></div>
+              <div class="annual-row"><span class="annual-date">DEZ</span><span>Balanço do ano</span></div>
+            </div>
+          </div>
+          <div class="screen-nav">
+            <div class="nav-item"><span class="dot"></span>hoje</div>
+            <div class="nav-item"><span class="dot"></span>base</div>
+            <div class="nav-item"><span class="dot"></span>tarefas</div>
+            <div class="nav-item is-active"><span class="dot"></span>agenda</div>
+            <div class="nav-item"><span class="dot"></span>perfil</div>
+          </div>
+        </div></div>
+      </div>
+    </div>
+    <div class="more-card">
+      <strong>+ e por aí vai.</strong> Depois dessa há mais abas — a parte mais pessoal da planilha — ainda não compartilhadas. Ficam em aberto aqui, em vez de preenchidas por suposição.
+    </div>
+  </section>
+
+  <section class="section" id="legado" style="border-bottom:none;">
+    <div class="section-grid">
+      <div class="section-phone">
+        <div class="phone"><div class="screen">
+          <div class="screen-bar"><span>última aba</span><span>legado</span></div>
+          <div class="screen-body">
+            <div class="screen-verse">"Combati o bom combate, acabei a carreira, guardei a fé. Desde agora, a coroa da justiça me está guardada, a qual o Senhor, justo juiz, me dará naquele dia."</div>
+            <div class="screen-cite">2 Timóteo 4:7-8 — verso de despedida</div>
+          </div>
+          <div class="screen-nav">
+            <div class="nav-item"><span class="dot"></span>hoje</div>
+            <div class="nav-item is-active"><span class="dot"></span>base</div>
+            <div class="nav-item"><span class="dot"></span>tarefas</div>
+            <div class="nav-item"><span class="dot"></span>agenda</div>
+            <div class="nav-item"><span class="dot"></span>perfil</div>
+          </div>
+        </div></div>
+      </div>
+      <div class="section-text">
+        <div class="section-head">
+          <span class="section-kicker">última aba</span>
+        </div>
+        <h2 class="section-title">A planilha termina onde a vida termina</h2>
+        <span class="tag tag--source">conteúdo já compartilhado</span>
+        <div class="section-copy">
+          <p>Do lema de vida ao versículo de despedida — a planilha já é, na prática, uma regra de vida completa. O app só precisa manter essa mesma ordem: começa em Cristo, passa pelos dias comuns, termina na fé guardada.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="closing">
+    <blockquote>"Combati o bom combate, acabei a carreira, guardei a fé. Desde agora, a coroa da justiça me está guardada, a qual o Senhor, justo juiz, me dará naquele dia; e não somente a mim, mas também a todos os que amarem a sua vinda."</blockquote>
+    <cite>2 Timóteo 4:7-8</cite>
+    <div class="closing-note">
+      <p><strong>O que falta para continuar:</strong> a planilha completa (ou os valores, tarefas e agenda reais), o restante do conteúdo de devocional, e qualquer outro material ainda não incluído aqui.</p>
+      <p>Este arquivo é um esboço, não o produto final — a respiração, a oração e a escrita já respondem de verdade nesta prévia (é só testar), mas nada fica salvo depois que a página fecha. A ideia é usá-lo como base de conversa, ajustar o que não fizer sentido, e só depois partir para a construção real.</p>
+    </div>
+  </section>
+
+  <section class="report-section" id="proposta">
+    <div class="wrap">
+      <div class="report-intro">
+        <span class="section-kicker">documento anexo — não é uma tela do app</span>
+        <h2 class="section-title">Proposta de identidade visual, estrutura e funcionalidades</h2>
+        <p class="report-lead">Um resumo organizado do raciocínio por trás deste esboço: por que essas cores, essas fontes, essa ordem de seções. Pensado como material de apoio para a conversa — não como decisão fechada. Cada ponto aqui pode ser mantido, ajustado ou descartado.</p>
+      </div>
+
+      <div class="report-block">
+        <h3 class="report-h3">01 · Identidade visual</h3>
+        <div class="report-grid-2">
+          <div class="report-card report-card--symbol">
+            <div class="symbol-visual">
+              <img class="mark-light" src="data:image/png;base64,__COMPASS_GREEN__" alt="" />
+              <img class="mark-dark" src="data:image/png;base64,__COMPASS_DARK__" alt="" />
+            </div>
+            <h4>Símbolo — bússola e amanhecer</h4>
+            <p>Referência direta a Provérbios 4:18: "a vereda dos justos é como a luz da alva, que vai brilhando mais e mais até ser dia perfeito." A bússola representa direção e decisão — a metade de "gestão"; o amanhecer representa processo e crescimento gradual — a metade de "vida".</p>
+            <p>As duas ideias do nome do produto viram as duas metades do mesmo símbolo, em vez de duas marcas separadas.</p>
+          </div>
+          <div class="report-card">
+            <h4>Paleta</h4>
+            <div class="swatch-row">
+              <div class="swatch"><span class="swatch-chip" style="background:#285c50;"></span><span>verde<br>estrutura</span></div>
+              <div class="swatch"><span class="swatch-chip" style="background:#8a6b2e;"></span><span>dourado<br>destaque</span></div>
+              <div class="swatch"><span class="swatch-chip" style="background:#ececdf;"></span><span>marfim<br>fundo claro</span></div>
+              <div class="swatch"><span class="swatch-chip" style="background:#0f1a17;"></span><span>verde-escuro<br>fundo noturno</span></div>
+            </div>
+            <p>Verde profundo como cor de estrutura — usado na maior parte da interface. Dourado reservado só para o que merece destaque: o dia de hoje, uma meta, um valor central. Quando tudo é dourado, nada é.</p>
+            <p class="symbol-apps-label">o monograma, nos mesmos três contextos</p>
+            <div class="symbol-apps">
+              <div class="symbol-app">
+                <span class="symbol-app-tile symbol-app-tile--light"><img src="data:image/png;base64,__ICON_GREEN__" alt="" /></span>
+                <span class="symbol-app-text"><strong>Fundo claro</strong><span>versão verde — o uso padrão</span></span>
+              </div>
+              <div class="symbol-app">
+                <span class="symbol-app-tile symbol-app-tile--dark"><img src="data:image/png;base64,__ICON_CREAM__" alt="" /></span>
+                <span class="symbol-app-text"><strong>Fundo escuro</strong><span>versão creme — garante contraste</span></span>
+              </div>
+              <div class="symbol-app">
+                <span class="symbol-app-tile symbol-app-tile--filled"><img src="data:image/png;base64,__TILE_GREEN__" alt="" /></span>
+                <span class="symbol-app-text"><strong>Ícone do app</strong><span>fechado num quadrado — formato de favicon</span></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="report-card" style="margin-top:14px;">
+          <h4>Tipografia — quatro fontes, quatro papéis</h4>
+          <div class="type-row">
+            <span class="type-sample" style="font-family:'Gilda Display',serif;">Gestão da Vida</span>
+            <div class="type-meta"><strong>Gilda Display</strong><span>só a marca — nunca aparece em mais nenhum lugar do app</span></div>
+          </div>
+          <div class="type-row">
+            <span class="type-sample" style="font-family:'Cormorant Garamond',serif;font-weight:600;">Título, verso, número</span>
+            <div class="type-meta"><strong>Cormorant Garamond</strong><span>títulos de seção, versículos, números grandes — o tom editorial e afetivo</span></div>
+          </div>
+          <div class="type-row">
+            <span class="type-sample" style="font-family:'Karla',sans-serif;">Corpo de texto e interface</span>
+            <div class="type-meta"><strong>Karla</strong><span>parágrafos, botões, formulários — o que precisa ser lido rápido, sem atrito</span></div>
+          </div>
+          <div class="type-row">
+            <span class="type-sample" style="font-family:'Space Mono',monospace;font-size:16px;">TAG · DATA · 188/365</span>
+            <div class="type-meta"><strong>Space Mono</strong><span>tags, datas, contadores — sinaliza "isto é dado", não "isto é sentimento"</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="report-block">
+        <h3 class="report-h3">02 · Estrutura do produto</h3>
+        <p class="report-lead">A ordem das seções segue a lógica da planilha original: primeiro quem a pessoa é e no que ela acredita, depois o que ela faz todo dia, por fim os compromissos maiores e o horizonte da vida inteira.</p>
+        <ol class="roadmap-list">
+          <li class="roadmap-item"><strong>Lema de vida</strong><span>a frase que resume tudo — o ponto de partida, antes de qualquer tela funcional</span></li>
+          <li class="roadmap-item"><strong>Valores</strong><span>os princípios que orientam as decisões — a aba "base", na navegação</span></li>
+          <li class="roadmap-item"><strong>Hoje — estação devocional</strong><span>os sete passos do dia: Bíblia, devocional, oração, declaração, respiração, meditação, escrita</span></li>
+          <li class="roadmap-item"><strong>Tarefas cíclicas</strong><span>o que se repete — rotinas, hábitos, disciplinas</span></li>
+          <li class="roadmap-item"><strong>Tarefas pontuais</strong><span>o que acontece uma vez — pendências, compromissos avulsos</span></li>
+          <li class="roadmap-item"><strong>Agenda</strong><span>compromissos com hora marcada</span></li>
+          <li class="roadmap-item"><strong>Eventos anuais</strong><span>datas que se repetem ano a ano — aniversários, datas comemorativas</span></li>
+          <li class="roadmap-item"><strong>Legado</strong><span>o horizonte final — o versículo de despedida, o que fica depois</span></li>
+        </ol>
+      </div>
+
+      <div class="report-block">
+        <h3 class="report-h3">03 · Funcionalidades centrais</h3>
+        <div class="report-grid-3">
+          <div class="report-card">
+            <h4>Estação devocional</h4>
+            <p>Os sete passos em abas dentro de uma única tela, sem precisar sair e voltar. Cada aba guarda seu próprio estado — plano de leitura escolhido, dia da declaração, o que foi escrito na meditação.</p>
+          </div>
+          <div class="report-card">
+            <h4>Tarefas cíclicas e pontuais</h4>
+            <p>Separação clara entre rotina (o que se repete) e pendência (o que se resolve e encerra), pra essas duas coisas não se misturarem numa lista só.</p>
+          </div>
+          <div class="report-card">
+            <h4>Agenda e eventos anuais</h4>
+            <p>Compromissos com hora marcada ficam separados de datas que se repetem todo ano — dois ritmos diferentes de planejamento, duas telas diferentes.</p>
+          </div>
+          <div class="report-card">
+            <h4>Registro de oração</h4>
+            <p>Lista contínua, não uma lista que zera todo dia — o pedido só sai da tela quando é marcado como respondido.</p>
+          </div>
+          <div class="report-card">
+            <h4>Diário</h4>
+            <p>Página em branco pra fechar o dia por escrito, sem prompt e sem estrutura obrigatória.</p>
+          </div>
+          <div class="report-card">
+            <h4>Legado</h4>
+            <p>Espaço fixo pro que a pessoa quer deixar registrado pra depois — o versículo de despedida é só o primeiro exemplo desse tipo de conteúdo.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="report-block">
+        <h3 class="report-h3">04 · Configurações propostas</h3>
+        <p class="report-lead">Nenhuma dessas telas existe nesta prévia — é a lista do que faria sentido configurar, pra decidir prioridade antes de construir de verdade.</p>
+        <ul class="settings-list">
+          <li class="settings-item"><strong>Tema</strong><span>claro / escuro / automático — já demonstrado nesta prévia</span></li>
+          <li class="settings-item"><strong>Plano de leitura bíblica</strong><span>trocar de plano sem perder o progresso do plano anterior</span></li>
+          <li class="settings-item"><strong>Materiais devocionais</strong><span>cadastrar um novo devocional e escolher o formato de dias — data, semana ou número sequencial</span></li>
+          <li class="settings-item"><strong>Lembretes</strong><span>horário sugerido pra estação devocional, tarefas do dia e compromissos da agenda</span></li>
+          <li class="settings-item"><strong>Privacidade do diário e da meditação</strong><span>decidir se esse conteúdo pode ser exportado, ou se existe só enquanto o app está aberto</span></li>
+          <li class="settings-item"><strong>Backup e exportação</strong><span>tirar uma cópia dos dados — tarefas, orações, diário — de dentro do app</span></li>
+          <li class="settings-item"><strong>Perfil e legado</strong><span>quem tem acesso ao conteúdo de legado, e quando</span></li>
+        </ul>
+      </div>
+
+      <div class="report-block">
+        <h3 class="report-h3">05 · Próximos passos</h3>
+        <div class="phase-grid">
+          <div class="phase-card">
+            <span class="mf-label">fase 1</span>
+            <h4>Validar o conceito</h4>
+            <p>Esta prévia serve pra essa conversa: o que faz sentido manter, o que precisa mudar, o que ainda falta chegar — planilha completa, valores reais, tarefas reais.</p>
+          </div>
+          <div class="phase-card">
+            <span class="mf-label">fase 2</span>
+            <h4>Reunir o conteúdo real</h4>
+            <p>Substituir cada exemplo ilustrativo pelo conteúdo verdadeiro — a planilha inteira, as 31 declarações completas, os devocionais já usados no dia a dia.</p>
+          </div>
+          <div class="phase-card">
+            <span class="mf-label">fase 3</span>
+            <h4>Construir como web app</h4>
+            <p>Formato acessível pelo navegador, em computador e celular, sem passar por loja de aplicativo — mesma direção já definida no início desta conversa.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <span>gestão da vida — esboço de conceito</span>
+    <span>alguns controles já respondem — nada fica salvo entre acessos</span>
+  </footer>
+
+</main>
+</div>
+
+<script>
+  (function () {
+    var splash = document.getElementById('introSplash');
+    var video = document.getElementById('introVideo');
+    var skip = document.getElementById('introSkip');
+    if (!splash) return;
+    function dismiss() {
+      splash.classList.add('is-hidden');
+      setTimeout(function () { splash.style.display = 'none'; }, 500);
+    }
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion) { dismiss(); }
+    else {
+      video.addEventListener('ended', dismiss);
+      video.addEventListener('error', dismiss);
+      skip.addEventListener('click', dismiss);
+      setTimeout(dismiss, 8000);
+    }
+  })();
+
+  (function () {
+    var html = document.documentElement;
+    function setDevice(mode) {
+      html.setAttribute('data-device', mode);
+      try { localStorage.setItem('gdv-device', mode); } catch (e) {}
+      var dBtn = document.getElementById('toggleDesktop');
+      var mBtn = document.getElementById('toggleMobile');
+      if (dBtn && mBtn) {
+        dBtn.classList.toggle('is-active', mode === 'desktop');
+        mBtn.classList.toggle('is-active', mode === 'mobile');
+      }
+      window.scrollTo(0, 0);
+    }
+    document.getElementById('gateDesktop').addEventListener('click', function () { setDevice('desktop'); });
+    document.getElementById('gateMobile').addEventListener('click', function () { setDevice('mobile'); });
+    document.getElementById('toggleDesktop').addEventListener('click', function () { setDevice('desktop'); });
+    document.getElementById('toggleMobile').addEventListener('click', function () { setDevice('mobile'); });
+    var saved = null;
+    try { saved = localStorage.getItem('gdv-device'); } catch (e) {}
+    if (saved === 'mobile' || saved === 'desktop') setDevice(saved);
+  })();
+</script>
+
+<script>
+  (function () {
+    var links = Array.prototype.slice.call(document.querySelectorAll('#toc a'));
+    var sections = links.map(function (a) { return document.querySelector(a.getAttribute('href')); }).filter(Boolean);
+    if (!('IntersectionObserver' in window) || !sections.length) return;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        var id = '#' + entry.target.id;
+        var link = links.find(function (a) { return a.getAttribute('href') === id; });
+        if (!link) return;
+        if (entry.isIntersecting) {
+          links.forEach(function (a) { a.classList.remove('is-active'); });
+          link.classList.add('is-active');
+        }
+      });
+    }, { rootMargin: '-40% 0px -50% 0px', threshold: 0 });
+    sections.forEach(function (s) { io.observe(s); });
+  })();
+
+  /* ---------- devotional station tabs ---------- */
+  (function () {
+    var tabs = document.querySelectorAll('.devo-tab');
+    var panels = document.querySelectorAll('.devo-panel');
+    tabs.forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        tabs.forEach(function (t) { t.classList.remove('is-active'); });
+        panels.forEach(function (p) { p.classList.remove('is-active'); });
+        tab.classList.add('is-active');
+        var panel = document.querySelector('.devo-panel[data-panel="' + tab.dataset.step + '"]');
+        if (panel) panel.classList.add('is-active');
+        if (tab.dataset.step !== 'respiracao') stopBreath();
+      });
+    });
+  })();
+
+  /* ---------- prayer log ---------- */
+  (function () {
+    var form = document.getElementById('prayerForm');
+    var input = document.getElementById('prayerInput');
+    var list = document.getElementById('prayerList');
+    if (!form) return;
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var val = input.value.trim();
+      if (!val) return;
+      var item = document.createElement('div');
+      item.className = 'prayer-item';
+      item.innerHTML = '<span class="chip chip-cat">pessoal</span><span class="prayer-text"></span><span class="prayer-status">orando</span>';
+      item.querySelector('.prayer-text').textContent = val;
+      list.insertBefore(item, list.firstChild);
+      input.value = '';
+      input.focus();
+    });
+    list.addEventListener('click', function (e) {
+      if (!e.target.classList.contains('prayer-status')) return;
+      var item = e.target.closest('.prayer-item');
+      var answered = item.classList.toggle('is-answered');
+      e.target.textContent = answered ? 'respondido' : 'orando';
+    });
+  })();
+
+  /* ---------- devotional text expand ---------- */
+  (function () {
+    var btn = document.getElementById('devoToggle');
+    var text = document.getElementById('devoText');
+    if (!btn) return;
+    btn.addEventListener('click', function () {
+      var expanded = text.classList.toggle('is-expanded');
+      btn.textContent = expanded ? 'recolher' : 'ler completo';
+    });
+  })();
+
+  /* ---------- bible plan switching ---------- */
+  (function () {
+    var CIRC = 213.6;
+    var plans = [
+      { total: 365, day: 188, week: [
+        ['Seg', '1 Reis 20\u201321 \u00b7 Salmo 84'], ['Ter', '1 Reis 22 \u00b7 Salmo 85'], ['Qua', '2 Reis 1\u20132 \u00b7 Salmo 86'],
+        ['Qui', '2 Reis 3 \u00b7 Salmo 87 \u00b7 Atos 8'], ['Sex', '2 Reis 4 \u00b7 Salmo 88 \u00b7 Atos 9'], ['S\u00e1b', '2 Reis 4 (cont.) \u00b7 Atos 9 (cont.)'],
+        ['Dom', '2 Reis 4\u20135 \u00b7 Salmo 89 \u00b7 Atos 10']
+      ]},
+      { total: 730, day: 94, week: [
+        ['Seg', '\u00c9xodo 19\u201320'], ['Ter', '\u00c9xodo 21\u201322'], ['Qua', '\u00c9xodo 23\u201324'],
+        ['Qui', '\u00c9xodo 25'], ['Sex', '\u00c9xodo 26'], ['S\u00e1b', '\u00c9xodo 27'], ['Dom', '\u00c9xodo 28']
+      ]},
+      { total: 365, day: 188, week: [
+        ['Seg', '2 Cr\u00f4nicas 18 \u00b7 Prov\u00e9rbios 12 \u00b7 Romanos 6'], ['Ter', '2 Cr\u00f4nicas 19 \u00b7 Prov\u00e9rbios 13 \u00b7 Romanos 7'],
+        ['Qua', '2 Cr\u00f4nicas 20 \u00b7 Prov\u00e9rbios 14 \u00b7 Romanos 8'], ['Qui', '2 Cr\u00f4nicas 21 \u00b7 Prov\u00e9rbios 15 \u00b7 Romanos 9'],
+        ['Sex', '2 Cr\u00f4nicas 22 \u00b7 Prov\u00e9rbios 16 \u00b7 Romanos 10'], ['S\u00e1b', '2 Cr\u00f4nicas 23 \u00b7 Prov\u00e9rbios 17 \u00b7 Romanos 11'],
+        ['Dom', '2 Cr\u00f4nicas 24 \u00b7 Prov\u00e9rbios 18 \u00b7 Romanos 12']
+      ]},
+      { total: 90, day: 71, week: [
+        ['Seg', 'Hebreus 9\u201310'], ['Ter', 'Hebreus 11\u201312'], ['Qua', 'Hebreus 13 \u00b7 Tiago 1'],
+        ['Qui', 'Tiago 2\u20133'], ['Sex', 'Tiago 4\u20135'], ['S\u00e1b', '1 Pedro 1\u20132'], ['Dom', '1 Pedro 3\u20134']
+      ]}
+    ];
+    var grid = document.getElementById('planGrid');
+    var ringFill = document.getElementById('bibleRingFill');
+    var dayNum = document.getElementById('bibleDayNum');
+    var dayTotal = document.getElementById('bibleDayTotal');
+    var todayRef = document.getElementById('bibleTodayRef');
+    var weekList = document.getElementById('bibleWeekList');
+    if (!grid) return;
+    function render(idx) {
+      var p = plans[idx];
+      var frac = p.day / p.total;
+      ringFill.style.strokeDashoffset = (CIRC * (1 - frac)).toFixed(1);
+      dayNum.textContent = 'dia ' + p.day;
+      dayTotal.textContent = 'de ' + p.total;
+      todayRef.textContent = p.week[6][1];
+      window.gvBibleToday = p.week[6][1];
+      weekList.innerHTML = '';
+      p.week.forEach(function (row, i) {
+        var li = document.createElement('li');
+        var isToday = i === 6;
+        li.className = 'week-row' + (isToday ? ' is-today' : '');
+        li.innerHTML = '<span class="wr-day">' + row[0] + '</span><span class="wr-ref">' + row[1] + '</span><span class="wr-check ' + (isToday ? 'is-today">hoje' : 'is-done">lido') + '</span>';
+        weekList.appendChild(li);
+      });
+      document.dispatchEvent(new CustomEvent('gv:bible-changed'));
+    }
+    grid.addEventListener('change', function (e) {
+      var card = e.target.closest('.plan-card');
+      if (!card) return;
+      render(Number(card.dataset.plan));
+    });
+    window.gvBibleToday = plans[0].week[6][1];
+  })();
+
+  /* ---------- declaration day switching ---------- */
+  (function () {
+    var declDays = {
+      1: ['Deus est\u00e1 comigo. Eu j\u00e1 consegui. J\u00e1 deu tudo certo.',
+          'Aceito as coisas como elas s\u00e3o e procuro mudar aquelas que est\u00e3o em meu poder de transforma\u00e7\u00e3o.',
+          'N\u00e3o me comparo com ningu\u00e9m e decido hoje mesmo buscar encontrar o meu caminho e viver nele.'],
+      2: ['Se for para criticar as pessoas, decido me calar.',
+          'Se for para reclamar das circunst\u00e2ncias, decido dar sugest\u00e3o.',
+          'Se for para buscar culpados, buscarei a solu\u00e7\u00e3o.',
+          'Se for para se fazer de v\u00edtima, decido me fazer de vencedor.',
+          'Se for para justificar meus erros, decido aprender com eles.',
+          'Se for para julgar algu\u00e9m, decido julgar a atitude dessa pessoa.',
+          '\u2014 frases extra\u00eddas do livro O Poder da A\u00e7\u00e3o, de Paulo Vieira.'],
+      3: ['Deus est\u00e1 comigo. Eu j\u00e1 consegui. J\u00e1 deu tudo certo.',
+          'Decido estudar e trabalhar arduamente, com intelig\u00eancia, para construir um futuro melhor para o mundo, para a minha fam\u00edlia, para os que me cercam e para mim mesmo.',
+          'Amo estudar e trabalhar e dou o meu melhor em tudo o que fa\u00e7o.',
+          'Posso fazer tudo o que preciso fazer na vida, inclusive as coisas mais dif\u00edceis e n\u00e3o t\u00e3o agrad\u00e1veis, por interm\u00e9dio de Cristo que me d\u00e1 for\u00e7as pra vencer.'],
+      4: ['Deus est\u00e1 comigo. Eu j\u00e1 consegui. J\u00e1 deu tudo certo.',
+          'As oportunidades surgem diariamente diante de mim e eu as aproveito sempre. Em breve surgir\u00e1 uma excelente oportunidade de neg\u00f3cios e sucesso financeiro e eu irei identific\u00e1-la e aproveit\u00e1-la prontamente.',
+          'N\u00e3o renuncio ben\u00e7\u00e3os e n\u00e3o abro m\u00e3o de um centavo conquistado. Avan\u00e7o seguro de que Deus tem o melhor para n\u00f3s.'],
+      5: ['Deus est\u00e1 comigo. Eu j\u00e1 consegui. J\u00e1 deu tudo certo.',
+          'Dependo menos das atitudes e habilidades dos que me cercam, bem como dependo mais de Deus, da minha paix\u00e3o, compet\u00eancia e determina\u00e7\u00e3o.',
+          'Sei que minha mais simples mensagem pode salvar milh\u00f5es de pessoas, por isso n\u00e3o deixo de pregar Cristo e suas verdades.'],
+      6: ['Deus est\u00e1 comigo. Eu j\u00e1 consegui. J\u00e1 deu tudo certo.',
+          'N\u00e3o me deixo levar pelo mau humor ou pela negatividade dos que est\u00e3o ao meu redor. Sei quem sou em Deus e por isso mesmo alcan\u00e7arei as b\u00ean\u00e7\u00e3os que Ele tem pra mim.',
+          'Para cada fator limitante que existe em todos os setores da vida, h\u00e1 milhares de pessoas que foram bem-sucedidas apesar de tais fatores.'],
+      7: ['Deus est\u00e1 comigo. Eu j\u00e1 consegui. J\u00e1 deu tudo certo.',
+          'O que eu n\u00e3o tenho \u00e9 porque eu n\u00e3o sei, porque se eu soubesse eu j\u00e1 teria. Ent\u00e3o, decido buscar a sabedoria e o conhecimento todos os dias.',
+          'Posso lidar com tudo que a vida me trouxer. Posso fazer qualquer coisa por meio daquele que me enche de for\u00e7a interior.']
+    };
+    var strip = document.getElementById('declDayStrip');
+    var text = document.getElementById('declText');
+    var tag = document.getElementById('declTag');
+    if (!strip) return;
+    window.gvDeclToday = declDays[1][0];
+    strip.addEventListener('click', function (e) {
+      var btn = e.target.closest('.ds-day');
+      if (!btn) return;
+      var day = Number(btn.dataset.day);
+      strip.querySelectorAll('.ds-day').forEach(function (b) { b.classList.remove('is-today'); });
+      btn.classList.add('is-today');
+      text.innerHTML = declDays[day].map(function (p) {
+        return p.charAt(0) === '\u2014'
+          ? '<p style="font-style:italic;color:var(--text-muted);font-size:12.5px;">' + p + '</p>'
+          : '<p>\u201c' + p + '\u201d</p>';
+      }).join('');
+      if (tag) tag.textContent = 'conte\u00fado j\u00e1 compartilhado \u2014 dia ' + day + ' de 31';
+      window.gvDeclToday = declDays[day][0];
+      document.dispatchEvent(new CustomEvent('gv:decl-changed'));
+    });
+  })();
+
+  /* ---------- meditation recap (reads current bible/declaration state) ---------- */
+  (function () {
+    var rb = document.getElementById('recapBiblia');
+    var rd = document.getElementById('recapDecl');
+    if (!rb) return;
+    document.addEventListener('gv:bible-changed', function () { rb.textContent = window.gvBibleToday; });
+    document.addEventListener('gv:decl-changed', function () { rd.textContent = '\u201c' + window.gvDeclToday + '\u201d'; });
+  })();
+
+  /* ---------- journal ---------- */
+  (function () {
+    var btn = document.getElementById('journalSave');
+    var area = document.getElementById('journalArea');
+    var saved = document.getElementById('journalSaved');
+    var history = document.getElementById('journalHistory');
+    if (!btn) return;
+    var fadeTimer;
+    btn.addEventListener('click', function () {
+      var val = area.value.trim();
+      if (val) {
+        var entry = document.createElement('div');
+        entry.className = 'journal-entry';
+        entry.innerHTML = '<span class="je-date">hoje</span><span class="je-preview"></span>';
+        entry.querySelector('.je-preview').textContent = val;
+        history.insertBefore(entry, history.firstChild);
+        area.value = '';
+      }
+      saved.textContent = 'salvo agora há pouco';
+      saved.classList.add('is-shown');
+      clearTimeout(fadeTimer);
+      fadeTimer = setTimeout(function () { saved.classList.remove('is-shown'); }, 2200);
+    });
+  })();
+
+  /* ---------- breathing tool ---------- */
+  var breathTimer = null;
+  var breathState = { method: 'mindful', running: false };
+  function stopBreath() {
+    clearInterval(breathTimer);
+    breathTimer = null;
+    breathState.running = false;
+    var core = document.getElementById('breathCore');
+    var phaseEl = document.getElementById('breathPhase');
+    var countEl = document.getElementById('breathCount');
+    var fill = document.getElementById('breathRingFill');
+    var startBtn = document.getElementById('breathStart');
+    if (!core) return;
+    startBtn.onclick = null;
+    core.style.transform = 'scale(1)';
+    phaseEl.textContent = 'Pronto';
+    countEl.textContent = '—';
+    fill.style.strokeDashoffset = '553';
+    startBtn.textContent = 'Começar';
+    document.getElementById('breathRoundLabel').textContent =
+      breathState.method === 'mindful' ? '4 rondas' : '30 respirações · retenção · recuperação';
+  }
+  function setRing(pctFilled) {
+    var fill = document.getElementById('breathRingFill');
+    var c = 553;
+    fill.style.strokeDashoffset = String(c - c * pctFilled);
+  }
+  function runMindful() {
+    var phases = [
+      { name: 'Inspire', dur: 4, target: 1 },
+      { name: 'Segure', dur: 4, target: 1 },
+      { name: 'Expire', dur: 4, target: 0 },
+      { name: 'Segure', dur: 4, target: 0 }
+    ];
+    var totalRounds = 4;
+    var round = 1, phaseIdx = 0, secondsLeft = phases[0].dur;
+    var core = document.getElementById('breathCore');
+    var phaseEl = document.getElementById('breathPhase');
+    var countEl = document.getElementById('breathCount');
+    var roundEl = document.getElementById('breathRoundLabel');
+
+    function applyPhase() {
+      var p = phases[phaseIdx];
+      phaseEl.textContent = p.name;
+      countEl.textContent = String(secondsLeft);
+      roundEl.textContent = 'ronda ' + round + ' de ' + totalRounds;
+      core.style.transitionDuration = p.dur + 's';
+      core.style.transform = p.target ? 'scale(1.14)' : 'scale(1)';
+      var fill = document.getElementById('breathRingFill');
+      fill.style.transitionDuration = p.dur + 's';
+      setRing(p.target);
+    }
+    applyPhase();
+    breathTimer = setInterval(function () {
+      secondsLeft--;
+      if (secondsLeft > 0) { countEl.textContent = String(secondsLeft); return; }
+      phaseIdx++;
+      if (phaseIdx >= phases.length) {
+        phaseIdx = 0; round++;
+        if (round > totalRounds) { stopBreath(); phaseEl.textContent = 'Concluído'; return; }
+      }
+      secondsLeft = phases[phaseIdx].dur;
+      applyPhase();
+    }, 1000);
+  }
+  function runWimHof() {
+    var core = document.getElementById('breathCore');
+    var phaseEl = document.getElementById('breathPhase');
+    var countEl = document.getElementById('breathCount');
+    var roundEl = document.getElementById('breathRoundLabel');
+    var startBtn = document.getElementById('breathStart');
+    var breathNum = 0, totalBreaths = 30, inhale = true;
+
+    function fastBreath() {
+      breathNum++;
+      if (breathNum > totalBreaths) { startHold(); return; }
+      phaseEl.textContent = inhale ? 'Inspire fundo' : 'Solte';
+      countEl.textContent = breathNum + '/' + totalBreaths;
+      roundEl.textContent = 'fase 1 · respiração rápida';
+      core.style.transitionDuration = '.9s';
+      core.style.transform = inhale ? 'scale(1.14)' : 'scale(1)';
+      var fill = document.getElementById('breathRingFill');
+      fill.style.transitionDuration = '.9s';
+      setRing(inhale ? 1 : 0);
+      inhale = !inhale;
+    }
+    fastBreath();
+    breathTimer = setInterval(fastBreath, 900);
+
+    function startHold() {
+      clearInterval(breathTimer);
+      var held = 0;
+      phaseEl.textContent = 'Retenção — segure o ar';
+      roundEl.textContent = 'fase 2 · sem pressa, no seu ritmo';
+      core.style.transitionDuration = '1s';
+      core.style.transform = 'scale(1)';
+      setRing(0);
+      startBtn.textContent = 'Terminei a retenção';
+      startBtn.onclick = function () { clearInterval(breathTimer); startRecovery(); };
+      breathTimer = setInterval(function () {
+        held++;
+        var m = Math.floor(held / 60), s = held % 60;
+        countEl.textContent = (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+      }, 1000);
+    }
+    function startRecovery() {
+      var left = 15;
+      phaseEl.textContent = 'Inspire e segure';
+      roundEl.textContent = 'fase 3 · respiração de recuperação';
+      countEl.textContent = String(left);
+      core.style.transitionDuration = '1s';
+      core.style.transform = 'scale(1.14)';
+      setRing(1);
+      startBtn.onclick = null;
+      breathTimer = setInterval(function () {
+        left--;
+        countEl.textContent = String(left);
+        if (left <= 0) { clearInterval(breathTimer); phaseEl.textContent = 'Concluído'; countEl.textContent = '✓'; startBtn.textContent = 'Começar'; breathState.running = false; }
+      }, 1000);
+    }
+  }
+  (function () {
+    var methodBtns = document.querySelectorAll('.breath-method');
+    var startBtn = document.getElementById('breathStart');
+    var resetBtn = document.getElementById('breathReset');
+    if (!startBtn) return;
+    var label = document.getElementById('breathMethodLabel');
+    methodBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        methodBtns.forEach(function (b) { b.classList.remove('is-active'); });
+        btn.classList.add('is-active');
+        breathState.method = btn.dataset.method;
+        label.textContent = breathState.method === 'mindful'
+          ? 'Respiração em caixa — inspire, segure, expire, segure (4-4-4-4)'
+          : 'Wim Hof — 30 respirações rápidas, retenção e recuperação';
+        stopBreath();
+      });
+    });
+    startBtn.addEventListener('click', function () {
+      if (breathState.running) return;
+      breathState.running = true;
+      startBtn.textContent = 'Em andamento…';
+      if (breathState.method === 'mindful') runMindful(); else runWimHof();
+    });
+    resetBtn.addEventListener('click', function () {
+      startBtn.onclick = null;
+      stopBreath();
+    });
+  })();
+</script>
